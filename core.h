@@ -4,6 +4,7 @@
 #include "raylib.h"
 #include "stdio.h"
 #include "unistd.h"
+#include "stdlib.h"
 
 typedef struct {
   char right;
