@@ -44,11 +44,8 @@ void move(char current_direction, Vector2 *pos, Config cfg) {
   if (current_direction == cfg.directions.up) pos->y -= 2.0f;
 }
 
-void draw (Vector2 pos) {
-  BeginDrawing();
-    ClearBackground(RAYWHITE);
-    DrawRectangle(pos.x, pos.y, 10, 10, RED);
-  EndDrawing();
+void draw_snake (Vector2 pos) {
+  DrawRectangle(pos.x, pos.y, 10, 10, RED);
 }
 
 bool game_over(Vector2 pos, Config cfg) {

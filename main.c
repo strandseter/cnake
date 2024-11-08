@@ -10,6 +10,9 @@ int main(void) {
   bool is_game_running = true;
 
   while (!WindowShouldClose()) {
+    BeginDrawing();
+    ClearBackground(RAYWHITE);
+
     debug_print(pos, current_direction);
 
     if (game_over(pos, cfg)) {
@@ -21,7 +24,9 @@ int main(void) {
       move(current_direction, &pos, cfg);
     }
 
-    draw(pos);
+    draw_snake(pos);
+
+    EndDrawing();
   }
 
   CloseWindow();
