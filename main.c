@@ -21,10 +21,10 @@ int main(void) {
 
     if (is_game_running) {
       change_direction(&current_direction, cfg.directions);
-      move(current_direction, &pos, cfg);
-    }
 
-    draw_snake(pos);
+      move(current_direction, &pos, cfg);
+      draw_snake(pos, cfg);
+    }
 
     EndDrawing();
   }

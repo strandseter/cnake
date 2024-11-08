@@ -41,11 +41,6 @@ void move(char current_direction, Vector2 *pos, Config cfg) {
   if (current_direction == cfg.directions.up) pos->y -= cfg.speed;
 }
 
-void draw_snake (Vector2 pos) {
-  DrawRectangle(pos.x, pos.y, 10, 10, RED);
-  DrawRectangle(pos.x - 2, pos.y - 2, 10, 10, RED);
-}
-
 bool game_over(Vector2 pos, Config cfg) {
   const int font_size = 40;
   const char* game_over = "GAME OVER!";
@@ -65,4 +60,8 @@ bool game_over(Vector2 pos, Config cfg) {
   }
 
   return false;
+}
+
+void draw_snake (Vector2 pos, Config cfg) {
+  DrawRectangle(pos.x, pos.y, 10, 10, RED);
 }
