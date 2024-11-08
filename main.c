@@ -7,24 +7,21 @@ int main(void) {
 
   char current_direction = cfg.directions.right;
 
+  bool is_game_running = true;
+
   while (!WindowShouldClose()) {
     debug_print(pos, current_direction);
 
     if (game_over(pos, cfg)) {
-      continue;
+      is_game_running = false;
     }
 
-    change_direction(&current_direction, cfg.directions);
+    if (is_game_running) {
+      change_direction(&current_direction, cfg.directions);
+      move(current_direction, &pos, cfg);
+    }
 
-    move(current_direction, &pos, cfg);
-
-    BeginDrawing();
-
-      ClearBackground(RAYWHITE);
-
-      DrawRectangle(pos.x, pos.y, 10, 10, RED);
-    
-    EndDrawing();
+    draw(pos);
   }
 
   CloseWindow();

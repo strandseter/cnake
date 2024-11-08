@@ -8,6 +8,11 @@ void debug_print(Vector2 pos, char direction) {
 Config config() {
   Config config;
 
+  config.size = 10;
+
+  config.screenWidth = 400;
+  config.screenHeight = 400;
+
   Directions directions;
   directions.right = 'R';
   directions.down = 'D';
@@ -16,8 +21,7 @@ Config config() {
 
   config.directions = directions;
 
-  config.screenWidth = 800;
-  config.screenHeight = 450;
+
 
   InitWindow(config.screenWidth, config.screenHeight, "CS50");
 
@@ -40,16 +44,27 @@ void move(char current_direction, Vector2 *pos, Config cfg) {
   if (current_direction == cfg.directions.up) pos->y -= 2.0f;
 }
 
+void draw (Vector2 pos) {
+  BeginDrawing();
+    ClearBackground(RAYWHITE);
+    DrawRectangle(pos.x, pos.y, 10, 10, RED);
+  EndDrawing();
+}
+
 bool game_over(Vector2 pos, Config cfg) {
-  int fontSize = 40;
-  char* gameOver = "GAME OVER!";
+  const int font_size = 40;
+  const char* game_over = "GAME OVER!";
+  const int text_width = MeasureText(game_over, font_size);
 
-  int textWidth = MeasureText(gameOver, fontSize);
+  const bool is_right_border = pos.x == cfg.screenWidth - cfg.size;
+  const bool is_bottom_border = pos.y == cfg.screenHeight - cfg.size;
+  const bool is_left_border = pos.x == 0;
+  const bool is_top_border = pos.y == 0;
 
-  bool isWidthinWindow = pos.x != 0 && pos.y != 0;
+  const bool is_at_border = is_right_border || is_bottom_border || is_left_border || is_top_border;
 
-  if (!isWidthinWindow) {
-    DrawText(gameOver, (cfg.screenWidth - textWidth) / 2 , cfg.screenHeight / 2 - fontSize / 2, fontSize, RED);
+  if (is_at_border) {
+    DrawText(game_over, (cfg.screenWidth - text_width) / 2 , cfg.screenHeight / 2 - font_size / 2, font_size, RED);
   
     return true;
   }
