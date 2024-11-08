@@ -14,6 +14,7 @@ typedef struct {
 
 typedef struct {
     int size;
+    int speed;
     int screenWidth;
     int screenHeight;
     Vector2 pos;

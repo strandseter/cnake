@@ -9,7 +9,7 @@ Config config() {
   Config config;
 
   config.size = 10;
-
+  config.speed = 2;
   config.screenWidth = 400;
   config.screenHeight = 400;
 
@@ -18,10 +18,7 @@ Config config() {
   directions.down = 'D';
   directions.left = 'L';
   directions.up = 'U';
-
   config.directions = directions;
-
-
 
   InitWindow(config.screenWidth, config.screenHeight, "CS50");
 
@@ -38,14 +35,15 @@ void change_direction(char *current_direction, Directions directions) {
 }
 
 void move(char current_direction, Vector2 *pos, Config cfg) {
-  if (current_direction == cfg.directions.right) pos->x += 2.0f;
-  if (current_direction == cfg.directions.down) pos->y += 2.0f;
-  if (current_direction == cfg.directions.left) pos->x -= 2.0f;
-  if (current_direction == cfg.directions.up) pos->y -= 2.0f;
+  if (current_direction == cfg.directions.right) pos->x += cfg.speed;
+  if (current_direction == cfg.directions.down) pos->y += cfg.speed;
+  if (current_direction == cfg.directions.left) pos->x -= cfg.speed;
+  if (current_direction == cfg.directions.up) pos->y -= cfg.speed;
 }
 
 void draw_snake (Vector2 pos) {
   DrawRectangle(pos.x, pos.y, 10, 10, RED);
+  DrawRectangle(pos.x - 2, pos.y - 2, 10, 10, RED);
 }
 
 bool game_over(Vector2 pos, Config cfg) {
