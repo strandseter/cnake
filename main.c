@@ -89,3 +89,10 @@ int main(void) {
 
   return 0;
 };
+
+
+// TODO
+// 1. Initial Body Allocation. Remove head??
+// 2. Food Spawning Logic. Make sure food dosent spawn on the snake
+// 3. Self-Collision
+// 4. Direction Change Handling
