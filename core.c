@@ -4,7 +4,7 @@ Config config() {
   Config config;
 
   config.size = 10;
-  config.speed = 2;
+  config.speed = 5;
   config.screenWidth = 400;
   config.screenHeight = 400;
 
@@ -30,10 +30,10 @@ void change_direction(char *current_direction, Directions directions) {
 }
 
 void move(char current_direction, Vector2 *pos, Config cfg) {
-  if (current_direction == cfg.directions.right) pos->x += cfg.speed;
-  if (current_direction == cfg.directions.down) pos->y += cfg.speed;
-  if (current_direction == cfg.directions.left) pos->x -= cfg.speed;
-  if (current_direction == cfg.directions.up) pos->y -= cfg.speed;
+  if (current_direction == cfg.directions.right) pos->x += cfg.size;
+  if (current_direction == cfg.directions.down) pos->y += cfg.size;
+  if (current_direction == cfg.directions.left) pos->x -= cfg.size;
+  if (current_direction == cfg.directions.up) pos->y -= cfg.size;
 }
 
 bool game_over(Vector2 pos, Config cfg) {
@@ -59,7 +59,21 @@ bool game_over(Vector2 pos, Config cfg) {
 
 void draw_snake (Vector2 pos, Config cfg) {
   DrawRectangle(pos.x, pos.y, 10, 10, RED);
+  DrawRectangleLines(pos.x, pos.y, 10, 10, BLACK);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void debug_print(Vector2 pos, char direction) {
   printf("Current direction: %c\n", direction);
@@ -81,5 +95,11 @@ void print_char(char c) {
 void print_array(int *arr, int size) {
   for (int i = 0; i < size; i++) {
     printf("%d\n", arr[i]);
+  }
+}
+
+void print_history(Vector2 *history, int size) {
+  for (int i = 0; i < size; i++) {
+    printf("%f\n", history[i].x);
   }
 }
