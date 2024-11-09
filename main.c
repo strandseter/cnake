@@ -8,9 +8,9 @@ int main(void) {
   bool is_game_running = true;
 
   Vector2 head = { (float)cfg.screenWidth/2, (float)cfg.screenHeight/2 };
-  Vector2* body = malloc(sizeof(Vector2) * 1000); 
+  Vector2 *body = malloc(sizeof(Vector2) * 1000); 
 
-  int length = 0;
+  int len = 0;
   int tick = 0;
 
   while (!WindowShouldClose()) {
@@ -24,6 +24,7 @@ int main(void) {
     }
 
     if (is_game_running) {
+
       if (tick % cfg.speed == 0) {
         Vector2 prev;
         prev.x = head.x;
@@ -36,7 +37,7 @@ int main(void) {
       change_direction(&current_direction, cfg.directions);
 
       draw_snake_head(head, cfg);
-      draw_snake_body(body, length, cfg);
+      draw_snake_body(body, len, cfg);
 
       tick++;
     }

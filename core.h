@@ -26,7 +26,7 @@ Config config();
 bool game_over(Vector2 pos, Config cfg);
 
 // Movement
-void change_direction(char *direction, Directions directions);
+void change_direction(char *dir, Directions directions);
 void move(char current_direction, Vector2 *head, Config cfg);
 
 // Draw
