@@ -49,10 +49,10 @@ bool game_over(Vector2 pos, Config cfg) {
   const char* game_over = "GAME OVER!";
   const int text_width = MeasureText(game_over, font_size);
 
-  const bool is_right_border = pos.x == cfg.screenWidth - cfg.size;
-  const bool is_bottom_border = pos.y == cfg.screenHeight - cfg.size;
-  const bool is_left_border = pos.x == 0;
-  const bool is_top_border = pos.y == 0;
+  const bool is_right_border = pos.x == cfg.screenWidth;
+  const bool is_bottom_border = pos.y == cfg.screenHeight;
+  const bool is_left_border = (pos.x + cfg.size) == 0;
+  const bool is_top_border = (pos.y + cfg.size) == 0;
 
   const bool is_at_border = is_right_border || is_bottom_border || is_left_border || is_top_border;
 
@@ -66,8 +66,8 @@ bool game_over(Vector2 pos, Config cfg) {
 }
 
 void draw_snake_element (Vector2 pos, Config cfg) {
-  DrawRectangle(pos.x, pos.y, 10, 10, RED);
-  DrawRectangleLines(pos.x, pos.y, 10, 10, BLACK);
+  DrawRectangle(pos.x, pos.y, cfg.size, cfg.size, RED);
+  DrawRectangleLines(pos.x, pos.y, cfg.size, cfg.size, BLACK);
 }
 
 void draw_snake_head (Vector2 head, Config cfg) {
