@@ -8,7 +8,7 @@ int main(void) {
   bool is_game_running = true;
 
   Vector2 head = { (float)cfg.screenWidth/2, (float)cfg.screenHeight/2 };
-  Vector2 *body = malloc(sizeof(Vector2) * 1000); 
+  Vector2 *body = malloc(sizeof(Vector2) * 0); 
 
   int len = 0;
   int tick = 0;
@@ -24,12 +24,22 @@ int main(void) {
     }
 
     if (is_game_running) {
-
       if (tick % cfg.speed == 0) {
+
+        if (IsKeyPressed(KEY_ENTER)) {
+          len++;
+          body = realloc(body, sizeof(Vector2) * len);
+        }
+
+        for (int i = len - 1; i > 0; i--) {
+          body[i] = body[i - 1];
+        }
+
         Vector2 prev;
         prev.x = head.x;
         prev.y = head.y;
-        body[tick] = prev;
+
+        body[0] = prev;
 
         move(current_direction, &head, cfg);
       }

@@ -36,5 +36,6 @@ void draw_snake_body (Vector2 *body, int len, Config cfg);
 // Debug
 void debug_print(Vector2 pos, char direction);
 void print_history(Vector2 *history, int size);
+void print_int(int num);
 
 #endif
