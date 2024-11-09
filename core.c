@@ -1,10 +1,5 @@
 #include "core.h"
 
-void debug_print(Vector2 pos, char direction) {
-  printf("Current direction: %c\n", direction);
-  printf("x: %.0f, y: %.0f\n", pos.x, pos.y);
-}
-
 Config config() {
   Config config;
 
@@ -64,4 +59,27 @@ bool game_over(Vector2 pos, Config cfg) {
 
 void draw_snake (Vector2 pos, Config cfg) {
   DrawRectangle(pos.x, pos.y, 10, 10, RED);
+}
+
+void debug_print(Vector2 pos, char direction) {
+  printf("Current direction: %c\n", direction);
+  printf("x: %.0f, y: %.0f\n", pos.x, pos.y);
+}
+
+void print_int(int num) {
+  printf("%d\n", num);
+}
+
+void print_float(float num) {
+  printf("%f\n", num);
+}
+
+void print_char(char c) {
+  printf("%c\n", c);
+}
+
+void print_array(int *arr, int size) {
+  for (int i = 0; i < size; i++) {
+    printf("%d\n", arr[i]);
+  }
 }
