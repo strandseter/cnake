@@ -65,18 +65,10 @@ bool game_over(Vector2 pos, Config cfg) {
   return false;
 }
 
-void draw_snake_element (Vector2 pos, Config cfg) {
-  DrawRectangle(pos.x, pos.y, cfg.size, cfg.size, RED);
-  DrawRectangleLines(pos.x, pos.y, cfg.size, cfg.size, BLACK);
-}
-
-void draw_snake_head (Vector2 head, Config cfg) {
-  draw_snake_element(head, cfg);
-}
-
-void draw_snake_body (Vector2 *body, int len, Config cfg) {
+void draw_snake (Vector2 *snake, int len, Config cfg) {
   for (int i = 0; i < len; i++) {
-    draw_snake_element(body[i], cfg);
+    DrawRectangle(snake[i].x, snake[i].y, cfg.size, cfg.size, RED);
+    DrawRectangleLines(snake[i].x, snake[i].y, cfg.size, cfg.size, BLACK);
   }
 }
 

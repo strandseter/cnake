@@ -5,13 +5,14 @@ int main(void) {
 
   Config cfg = config();
 
+  // Snake controls
+  int len = 1;
+  char direction = cfg.directions.right;
+
   // The snake
   Vector2 head = { (float)cfg.screenWidth/2, (float)cfg.screenHeight/2 };
-  Vector2 *body = malloc(sizeof(Vector2) * 0); 
-
-  // Snake controls
-  int len = 0;
-  char direction = cfg.directions.right;
+  Vector2 *snake = malloc(sizeof(Vector2) * 1); 
+  snake[0] = head;
 
   // Curren food position
   Vector2 food = { -1, -1 };
@@ -27,7 +28,7 @@ int main(void) {
   
     //debug_print(head, current_direction);
 
-    if (game_over(head, cfg)) {
+    if (game_over(snake[0], cfg)) {
       game_running = false;
     }
 
@@ -39,7 +40,7 @@ int main(void) {
       }
 
       // Spawn food if eaten
-      if (head.x == food.x && head.y == food.y) {
+      if (snake[0].x == food.x && snake[0].y == food.y) {
         food.x = (rand() % (cfg.screenWidth / cfg.size)) * cfg.size;
         food.y = (rand() % (cfg.screenHeight / cfg.size)) * cfg.size;
 
@@ -54,28 +55,27 @@ int main(void) {
         // If food was eaten, increase the length
         if (did_eat) {
           len++;
-          body = realloc(body, sizeof(Vector2) * len);
+          snake = realloc(snake, sizeof(Vector2) * len);
           did_eat = false;
         }
 
-        // Shifting body one index to the right to make space for next
+        // Shifting snake one index to the right to make space for next
         for (int i = len - 1; i > 0; i--) {
-          body[i] = body[i - 1];
+          snake[i] = snake[i - 1];
         }
 
-        // Adding the previous head as first part of body
+        // Adding the previous head as the second part of the snake
         Vector2 prev;
-        prev.x = head.x;
-        prev.y = head.y;
-        body[0] = prev;
+        prev.x = snake[0].x;
+        prev.y = snake[0].y;
+        snake[1] = prev;
 
-        move(direction, &head, cfg);
+        move(direction, &snake[0], cfg);
       }
 
       // Draw
       DrawRectangle(food.x, food.y, cfg.size, cfg.size, BLUE);
-      draw_snake_head(head, cfg);
-      draw_snake_body(body, len, cfg);
+      draw_snake(snake, len, cfg);
 
       tick++;
     }
@@ -83,7 +83,7 @@ int main(void) {
     EndDrawing();
   }
 
-  free(body);
+  free(snake);
 
   CloseWindow();
 
