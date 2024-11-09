@@ -23,10 +23,15 @@ typedef struct {
 } Config;
 
 Config config();
-void change_direction(char *direction, Directions directions);
-void move(char current_direction, Vector2 *pos, Config cfg);
-void draw_snake (Vector2 pos, Config cfg);
 bool game_over(Vector2 pos, Config cfg);
+
+// Movement
+void change_direction(char *direction, Directions directions);
+void move(char current_direction, Vector2 *head, Config cfg);
+
+// Draw
+void draw_snake_head (Vector2 pos, Config cfg);
+void draw_snake_body (Vector2 *body, int len, Config cfg);
 
 // Debug
 void debug_print(Vector2 pos, char direction);

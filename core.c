@@ -29,11 +29,11 @@ void change_direction(char *current_direction, Directions directions) {
   if (IsKeyPressed(KEY_UP)) *current_direction = directions.up;
 }
 
-void move(char current_direction, Vector2 *pos, Config cfg) {
-  if (current_direction == cfg.directions.right) pos->x += cfg.size;
-  if (current_direction == cfg.directions.down) pos->y += cfg.size;
-  if (current_direction == cfg.directions.left) pos->x -= cfg.size;
-  if (current_direction == cfg.directions.up) pos->y -= cfg.size;
+void move(char current_direction, Vector2 *head, Config cfg) {
+  if (current_direction == cfg.directions.right) head->x += cfg.size;
+  if (current_direction == cfg.directions.down) head->y += cfg.size;
+  if (current_direction == cfg.directions.left) head->x -= cfg.size;
+  if (current_direction == cfg.directions.up) head->y -= cfg.size;
 }
 
 bool game_over(Vector2 pos, Config cfg) {
@@ -57,11 +57,20 @@ bool game_over(Vector2 pos, Config cfg) {
   return false;
 }
 
-void draw_snake (Vector2 pos, Config cfg) {
+void draw_snake_element (Vector2 pos, Config cfg) {
   DrawRectangle(pos.x, pos.y, 10, 10, RED);
   DrawRectangleLines(pos.x, pos.y, 10, 10, BLACK);
 }
 
+void draw_snake_head (Vector2 head, Config cfg) {
+  draw_snake_element(head, cfg);
+}
+
+void draw_snake_body (Vector2 *body, int len, Config cfg) {
+  for (int i = 0; i < len; i++) {
+    draw_snake_element(body[i], cfg);
+  }
+}
 
 
 

@@ -10,8 +10,7 @@ int main(void) {
   Vector2 head = { (float)cfg.screenWidth/2, (float)cfg.screenHeight/2 };
   Vector2* body = malloc(sizeof(Vector2) * 1000); 
 
-  int length = 1000;
-
+  int length = 0;
   int tick = 0;
 
   while (!WindowShouldClose()) {
@@ -36,12 +35,8 @@ int main(void) {
 
       change_direction(&current_direction, cfg.directions);
 
-
-      draw_snake(head, cfg);
-
-      for (int i = 0; i < length; i++) {
-        draw_snake(body[i], cfg);
-      }
+      draw_snake_head(head, cfg);
+      draw_snake_body(body, length, cfg);
 
       tick++;
     }
