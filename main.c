@@ -5,22 +5,22 @@ int main(void) {
 
   Config cfg = config();
 
-  // Snake controls
+  // Snake info
   int len = 1;
   char direction = cfg.directions.right;
+  bool did_eat = false;
 
-  // The snake
-  Vector2 head = { (float)cfg.screenWidth/2, (float)cfg.screenHeight/2 };
+  // Initializing snake
   Vector2 *snake = malloc(sizeof(Vector2) * 1); 
+  Vector2 head = { (float)cfg.screenWidth/2, (float)cfg.screenHeight/2 };
   snake[0] = head;
 
-  // Curren food position
+  // Current food position
   Vector2 food = { -1, -1 };
 
   // Game data
   int tick = 0;
   bool game_running = true;
-  bool did_eat = false;
 
   while (!WindowShouldClose()) {
     BeginDrawing();
