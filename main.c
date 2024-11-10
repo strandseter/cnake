@@ -5,7 +5,6 @@ int main(void) {
 
   Config cfg = config();
 
-
   // Initializing snake
   int len = 1;
   Snake *snake = malloc(sizeof(Snake) * len); 
@@ -20,18 +19,14 @@ int main(void) {
   bool game_running = true;
 
   // Controls
-  char direction = '_';
+  char current_direction = '_';
+  char input_direction = '_';
   bool did_eat = false;
-
-  int input_len = 10;
-  char inputs[input_len]; 
 
   while (!WindowShouldClose()) {
     BeginDrawing();
     ClearBackground(RAYWHITE);
   
-
-
     if (game_running) {
       const bool no_food = food.x == -1 && food.y == -1;
 
@@ -46,13 +41,13 @@ int main(void) {
         did_eat = true;
       }
       
-      track_input(direction, inputs, input_len, cfg.directions);
+      track_input(current_direction, &input_direction, cfg.directions);
 
       // Moving the snake based on tick and speed
       if (tick % cfg.speed == 0) {
         tick = 0; 
 
-        direction = inputs[0];
+        current_direction = input_direction;
 
         // If food was eaten, increase the length
         if (did_eat) {
@@ -63,7 +58,7 @@ int main(void) {
 
         shift_body(snake, len);
 
-        move_head(direction, &snake[0], cfg);
+        move_head(current_direction, &snake[0], cfg);
       }
 
       draw_food(food, cfg);

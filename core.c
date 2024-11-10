@@ -4,7 +4,7 @@ Config config() {
   Config config;
 
   config.size = 10;
-  config.speed = 5;
+  config.speed = 3;
   config.screenWidth = 400;
   config.screenHeight = 400;
 
@@ -22,30 +22,18 @@ Config config() {
   return config;
 }
 
-void track_input(char current_direction, char *inputs, int len, Directions directions) {
+void track_input(char current_direction, char *input_direction, Directions directions) {
   if (IsKeyPressed(KEY_RIGHT) && current_direction != directions.left) {
-    for (int i = len - 1; i > 0; i--) {
-      inputs[i] = inputs[i - 1];
-    }
-    inputs[0] = directions.right;
+    *input_direction = directions.right;
   }
   if (IsKeyPressed(KEY_DOWN) && current_direction != directions.up) {
-    for (int i = len - 1; i > 0; i--) {
-      inputs[i] = inputs[i - 1];
-    }
-    inputs[0] = directions.down;
+    *input_direction = directions.down;
   }
   if (IsKeyPressed(KEY_LEFT) && current_direction != directions.right) {
-    for (int i = len - 1; i > 0; i--) {
-      inputs[i] = inputs[i - 1];
-    }
-    inputs[0] = directions.left;
+    *input_direction = directions.left;
   }
   if (IsKeyPressed(KEY_UP) && current_direction != directions.down) {
-    for (int i = len - 1; i > 0; i--) {
-      inputs[i] = inputs[i - 1];
-    }
-    inputs[0] = directions.up;
+    *input_direction = directions.up;
   }
 }
 
