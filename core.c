@@ -22,19 +22,21 @@ Config config() {
   return config;
 }
 
-void change_direction(char *dir, Directions directions) {
-  if (IsKeyPressed(KEY_RIGHT) && *dir != directions.left) {
-    *dir = directions.right;
+char change_direction(char dir, Directions directions) {
+  if (IsKeyPressed(KEY_RIGHT) && dir != directions.left) {
+    return directions.right;
   }
-  if (IsKeyPressed(KEY_DOWN) && *dir != directions.up) {
-    *dir = directions.down;
+  if (IsKeyPressed(KEY_DOWN) && dir != directions.up) {
+    return directions.down;
   }
-  if (IsKeyPressed(KEY_LEFT) && *dir != directions.right) {
-    *dir = directions.left;
+  if (IsKeyPressed(KEY_LEFT) && dir != directions.right) {
+    return directions.left;
   }
-  if (IsKeyPressed(KEY_UP) && *dir != directions.down) {
-    *dir = directions.up;
+  if (IsKeyPressed(KEY_UP) && dir != directions.down) {
+    return directions.up;
   }
+
+  return dir;
 }
 
 void move(char current_direction, Snake *head, Config cfg) {

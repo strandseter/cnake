@@ -38,7 +38,7 @@ bool game_over(Snake *snake, int len, Config cfg);
 Food spawn_food(Food food, Config cfg);
 
 // Movement
-void change_direction(char *dir, Directions directions);
+char change_direction(char dir, Directions directions);
 void move(char current_direction, Snake *head, Config cfg);
 
 // Draw

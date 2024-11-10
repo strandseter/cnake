@@ -46,7 +46,7 @@ int main(void) {
       }
 
       // Changing direction if user presses arrow
-      change_direction(&direction, cfg.directions);
+      direction = change_direction(direction, cfg.directions);
 
       // Moving the snake based on tick and speed
       if (tick % cfg.speed == 0) {
