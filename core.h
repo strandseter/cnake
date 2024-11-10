@@ -39,7 +39,6 @@ Food spawn_food(Food food, Config cfg);
 
 // Movement
 void track_input(char current_direction, char *changes, int len, Directions directions);
-char change_direction(char dir, Directions directions);
 void shift_body(Snake *snake, int len);
 void move_head(char current_direction, Snake *head, Config cfg);
 

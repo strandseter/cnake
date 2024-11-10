@@ -22,23 +22,6 @@ Config config() {
   return config;
 }
 
-char change_direction(char dir, Directions directions) {
-  if (IsKeyPressed(KEY_RIGHT) && dir != directions.left) {
-    return directions.right;
-  }
-  if (IsKeyPressed(KEY_DOWN) && dir != directions.up) {
-    return directions.down;
-  }
-  if (IsKeyPressed(KEY_LEFT) && dir != directions.right) {
-    return directions.left;
-  }
-  if (IsKeyPressed(KEY_UP) && dir != directions.down) {
-    return directions.up;
-  }
-
-  return dir;
-}
-
 void track_input(char current_direction, char *inputs, int len, Directions directions) {
   if (IsKeyPressed(KEY_RIGHT) && current_direction != directions.left) {
     for (int i = len - 1; i > 0; i--) {
