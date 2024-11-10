@@ -86,5 +86,4 @@ int main(void) {
 
 // TODO
 // 2. Food Spawning Logic. Make sure food dosent spawn on the snake
-// 3. Self-Collision
 // 4. Direction Change Handling

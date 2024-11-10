@@ -58,6 +58,7 @@ bool game_over(Snake *snake, int len, Config cfg) {
     return true;
   }
 
+  // Starting at 1 to exclude head as part of the body
   for (int i = 1; i < len; i++) {
     Snake body = snake[i];
 
