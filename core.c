@@ -39,6 +39,33 @@ char change_direction(char dir, Directions directions) {
   return dir;
 }
 
+void track_input(char current_direction, char *changes, int len, Directions directions) {
+  if (IsKeyPressed(KEY_RIGHT) && current_direction != directions.left) {
+    for (int i = len - 1; i > 0; i--) {
+      changes[i] = changes[i - 1];
+    }
+    changes[0] = directions.right;
+  }
+  if (IsKeyPressed(KEY_DOWN) && current_direction != directions.up) {
+    for (int i = len - 1; i > 0; i--) {
+      changes[i] = changes[i - 1];
+    }
+    changes[0] = directions.down;
+  }
+  if (IsKeyPressed(KEY_LEFT) && current_direction != directions.right) {
+    for (int i = len - 1; i > 0; i--) {
+      changes[i] = changes[i - 1];
+    }
+    changes[0] = directions.left;
+  }
+  if (IsKeyPressed(KEY_UP) && current_direction != directions.down) {
+    for (int i = len - 1; i > 0; i--) {
+      changes[i] = changes[i - 1];
+    }
+    changes[0] = directions.up;
+  }
+}
+
 void shift_body(Snake *snake, int len) {
   for (int i = len - 1; i > 0; i--) {
     snake[i] = snake[i - 1];
@@ -104,6 +131,9 @@ void draw_game_over(Config cfg) {
 void draw_food(Food food, Config cfg) {
   DrawRectangle(food.x, food.y, cfg.size, cfg.size, BLUE);
 }
+
+
+
 
 
 

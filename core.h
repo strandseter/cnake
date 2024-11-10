@@ -38,6 +38,7 @@ bool game_over(Snake *snake, int len, Config cfg);
 Food spawn_food(Food food, Config cfg);
 
 // Movement
+void track_input(char current_direction, char *changes, int len, Directions directions);
 char change_direction(char dir, Directions directions);
 void shift_body(Snake *snake, int len);
 void move_head(char current_direction, Snake *head, Config cfg);
@@ -50,5 +51,6 @@ void draw_food(Food food, Config cfg);
 // Debug
 void debug_print(Snake pos, char direction);
 void print_int(int num);
+void print_char(char c);
 
 #endif

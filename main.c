@@ -5,12 +5,9 @@ int main(void) {
 
   Config cfg = config();
 
-  // Snake info
-  int len = 1;
-  char direction = cfg.directions.right;
-  bool did_eat = false;
 
   // Initializing snake
+  int len = 1;
   Snake *snake = malloc(sizeof(Snake) * len); 
   Snake head = { cfg.screenWidth/2, cfg.screenHeight/2 };
   snake[0] = head;
@@ -21,6 +18,13 @@ int main(void) {
   // Game data
   int tick = 0;
   bool game_running = true;
+
+  // Controls
+  char direction = '_';
+  bool did_eat = false;
+
+  int direction_changes_len = 10;
+  char direction_changes[direction_changes_len]; 
 
   while (!WindowShouldClose()) {
     BeginDrawing();
@@ -44,6 +48,8 @@ int main(void) {
         food = spawn_food(food, cfg);
         did_eat = true;
       }
+      
+      track_input(direction, direction_changes, direction_changes_len, cfg.directions);
 
       // Changing direction if user presses arrow
       direction = change_direction(direction, cfg.directions);
@@ -58,7 +64,7 @@ int main(void) {
         }
 
         shift_body(snake, len);
-        
+
         move_head(direction, &snake[0], cfg);
 
         tick = 0;
