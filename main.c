@@ -23,17 +23,14 @@ int main(void) {
   char direction = '_';
   bool did_eat = false;
 
-  int direction_changes_len = 10;
-  char direction_changes[direction_changes_len]; 
+  int input_len = 10;
+  char inputs[input_len]; 
 
   while (!WindowShouldClose()) {
     BeginDrawing();
     ClearBackground(RAYWHITE);
   
-    if (game_over(snake, len, cfg)) {
-      draw_game_over(cfg);
-      game_running = false;
-    }
+
 
     if (game_running) {
       const bool no_food = food.x == -1 && food.y == -1;
@@ -49,13 +46,14 @@ int main(void) {
         did_eat = true;
       }
       
-      track_input(direction, direction_changes, direction_changes_len, cfg.directions);
-
-      // Changing direction if user presses arrow
-      direction = change_direction(direction, cfg.directions);
+      track_input(direction, inputs, input_len, cfg.directions);
 
       // Moving the snake based on tick and speed
       if (tick % cfg.speed == 0) {
+        tick = 0; 
+
+        direction = inputs[0];
+
         // If food was eaten, increase the length
         if (did_eat) {
           len++;
@@ -66,14 +64,17 @@ int main(void) {
         shift_body(snake, len);
 
         move_head(direction, &snake[0], cfg);
-
-        tick = 0;
       }
 
       draw_food(food, cfg);
       draw_snake(snake, len, cfg);
-      
+
       tick++;
+    }
+
+    if (game_over(snake, len, cfg)) {
+      draw_game_over(cfg);
+      game_running = false;
     }
 
     EndDrawing();
