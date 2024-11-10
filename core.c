@@ -39,7 +39,13 @@ char change_direction(char dir, Directions directions) {
   return dir;
 }
 
-void move(char current_direction, Snake *head, Config cfg) {
+void shift_body(Snake *snake, int len) {
+  for (int i = len - 1; i > 0; i--) {
+    snake[i] = snake[i - 1];
+  }
+}
+
+void move_head(char current_direction, Snake *head, Config cfg) {
   if (current_direction == cfg.directions.right) head->x += cfg.size;
   if (current_direction == cfg.directions.down) head->y += cfg.size;
   if (current_direction == cfg.directions.left) head->x -= cfg.size;

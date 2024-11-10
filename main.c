@@ -57,12 +57,9 @@ int main(void) {
           did_eat = false;
         }
 
-        // Shifting the snake forward
-        for (int i = len - 1; i > 0; i--) {
-          snake[i] = snake[i - 1];
-        }
-
-        move(direction, &snake[0], cfg);
+        shift_body(snake, len);
+        
+        move_head(direction, &snake[0], cfg);
 
         tick = 0;
       }
