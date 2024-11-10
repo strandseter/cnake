@@ -16,7 +16,7 @@ int main(void) {
   snake[0] = head;
 
   // Current food position
-  Snake food = { -1, -1 };
+  Food food = { -1, -1 };
 
   // Game data
   int tick = 0;
@@ -66,8 +66,7 @@ int main(void) {
         move(direction, &snake[0], cfg);
       }
 
-      // Draw
-      DrawRectangle(food.x, food.y, cfg.size, cfg.size, BLUE);
+      draw_food(food, cfg);
       draw_snake(snake, len, cfg);
 
       tick++;

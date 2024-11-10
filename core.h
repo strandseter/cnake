@@ -13,6 +13,11 @@ typedef struct {
 } Snake;
 
 typedef struct {
+  int x;
+  int y;
+} Food;
+
+typedef struct {
   char right;
   char down;
   char left;
@@ -38,6 +43,7 @@ void move(char current_direction, Snake *head, Config cfg);
 // Draw
 void draw_snake (Snake *body, int len, Config cfg);
 void draw_game_over(Config cfg);
+void draw_food(Food food, Config cfg);
 
 // Debug
 void debug_print(Snake pos, char direction);

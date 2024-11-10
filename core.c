@@ -87,8 +87,9 @@ void draw_game_over(Config cfg) {
   DrawText(game_over, (cfg.screenWidth - text_width) / 2 , cfg.screenHeight / 2 - font_size / 2, font_size, RED);
 }
 
-
-
+void draw_food(Food food, Config cfg) {
+  DrawRectangle(food.x, food.y, cfg.size, cfg.size, BLUE);
+}
 
 
 
