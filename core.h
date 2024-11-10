@@ -29,7 +29,7 @@ typedef struct {
 } Config;
 
 Config config();
-bool game_over(Snake pos, Config cfg);
+bool game_over(Snake *snake, Config cfg);
 
 // Movement
 void change_direction(char *dir, Directions directions);

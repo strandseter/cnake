@@ -26,9 +26,7 @@ int main(void) {
     BeginDrawing();
     ClearBackground(RAYWHITE);
   
-    //debug_print(head, current_direction);
-
-    if (game_over(snake[0], cfg)) {
+    if (game_over(snake, cfg)) {
       game_running = false;
     }
 
@@ -92,7 +90,6 @@ int main(void) {
 
 
 // TODO
-// 1. Initial Body Allocation. Remove head??
 // 2. Food Spawning Logic. Make sure food dosent spawn on the snake
 // 3. Self-Collision
 // 4. Direction Change Handling

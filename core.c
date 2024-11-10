@@ -44,15 +44,17 @@ void move(char current_direction, Snake *head, Config cfg) {
   if (current_direction == cfg.directions.up) head->y -= cfg.size;
 }
 
-bool game_over(Snake pos, Config cfg) {
+bool game_over(Snake *snake, Config cfg) {
   const int font_size = 40;
   const char* game_over = "GAME OVER!";
   const int text_width = MeasureText(game_over, font_size);
 
-  const bool is_right_border = pos.x == cfg.screenWidth;
-  const bool is_bottom_border = pos.y == cfg.screenHeight;
-  const bool is_left_border = (pos.x + cfg.size) == 0;
-  const bool is_top_border = (pos.y + cfg.size) == 0;
+  Snake head = snake[0];
+
+  const bool is_right_border = head.x == cfg.screenWidth;
+  const bool is_bottom_border = head.y == cfg.screenHeight;
+  const bool is_left_border = (head.x + cfg.size) == 0;
+  const bool is_top_border = (head.y + cfg.size) == 0;
 
   const bool is_at_border = is_right_border || is_bottom_border || is_left_border || is_top_border;
 
