@@ -58,14 +58,13 @@ bool game_over(Snake *snake, int len, Config cfg) {
     return true;
   }
 
-  for (int i = 0; i < len; i++) {
+  for (int i = 1; i < len; i++) {
     Snake body = snake[i];
 
     const bool is_self_coliding = body.x == head.x && body.y == head.y;
 
     if (is_self_coliding) {
-      //return true;
-      printf("Colide\n");
+      return true;
     }
   }
 

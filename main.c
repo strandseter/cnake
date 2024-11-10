@@ -11,7 +11,7 @@ int main(void) {
   bool did_eat = false;
 
   // Initializing snake
-  Snake *snake = malloc(sizeof(Snake) * 1); 
+  Snake *snake = malloc(sizeof(Snake) * len); 
   Snake head = { cfg.screenWidth/2, cfg.screenHeight/2 };
   snake[0] = head;
 
@@ -58,16 +58,10 @@ int main(void) {
           did_eat = false;
         }
 
-        // Shifting snake one index to the right to make space for next
+        // Shifting the snake forward
         for (int i = len - 1; i > 0; i--) {
           snake[i] = snake[i - 1];
         }
-
-        // Adding the previous head as the second part of the snake
-        Snake prev;
-        prev.x = snake[0].x;
-        prev.y = snake[0].y;
-        snake[1] = prev;
 
         move(direction, &snake[0], cfg);
       }
