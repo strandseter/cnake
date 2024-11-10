@@ -32,17 +32,16 @@ int main(void) {
     }
 
     if (game_running) {
-      // Spawn initial food
-      if (food.x == -1 && food.y == -1) {
-        food.x = (rand() % (cfg.screenWidth / cfg.size)) * cfg.size;
-        food.y = (rand() % (cfg.screenHeight / cfg.size)) * cfg.size;
+      const bool no_food = food.x == -1 && food.y == -1;
+
+      if (no_food) {
+        food = spawn_food(food, cfg);
       }
 
-      // Spawn food if eaten
-      if (snake[0].x == food.x && snake[0].y == food.y) {
-        food.x = (rand() % (cfg.screenWidth / cfg.size)) * cfg.size;
-        food.y = (rand() % (cfg.screenHeight / cfg.size)) * cfg.size;
-
+      const bool is_eating = snake[0].x == food.x && snake[0].y == food.y;
+      
+      if (is_eating) {
+        food = spawn_food(food, cfg);
         did_eat = true;
       }
 
@@ -84,5 +83,5 @@ int main(void) {
 
 
 // TODO
-// 2. Food Spawning Logic. Make sure food dosent spawn on the snake
+// 2. Make sure food dosent spawn on the snake
 // 4. Direction Change Handling

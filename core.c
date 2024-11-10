@@ -44,6 +44,12 @@ void move(char current_direction, Snake *head, Config cfg) {
   if (current_direction == cfg.directions.up) head->y -= cfg.size;
 }
 
+Food spawn_food(Food food, Config cfg) {
+  food.x = (rand() % (cfg.screenWidth / cfg.size)) * cfg.size;
+  food.y = (rand() % (cfg.screenHeight / cfg.size)) * cfg.size;
+  return food;
+}
+
 bool game_over(Snake *snake, int len, Config cfg) {
   Snake head = snake[0];
 
