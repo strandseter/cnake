@@ -44,11 +44,7 @@ void move(char current_direction, Snake *head, Config cfg) {
   if (current_direction == cfg.directions.up) head->y -= cfg.size;
 }
 
-bool game_over(Snake *snake, Config cfg) {
-  const int font_size = 40;
-  const char* game_over = "GAME OVER!";
-  const int text_width = MeasureText(game_over, font_size);
-
+bool game_over(Snake *snake, int len, Config cfg) {
   Snake head = snake[0];
 
   const bool is_right_border = head.x == cfg.screenWidth;
@@ -58,10 +54,19 @@ bool game_over(Snake *snake, Config cfg) {
 
   const bool is_at_border = is_right_border || is_bottom_border || is_left_border || is_top_border;
 
-  if (is_at_border) {
-    DrawText(game_over, (cfg.screenWidth - text_width) / 2 , cfg.screenHeight / 2 - font_size / 2, font_size, RED);
-  
+  if (is_at_border) {  
     return true;
+  }
+
+  for (int i = 0; i < len; i++) {
+    Snake body = snake[i];
+
+    const bool is_self_coliding = body.x == head.x && body.y == head.y;
+
+    if (is_self_coliding) {
+      //return true;
+      printf("Colide\n");
+    }
   }
 
   return false;
@@ -72,6 +77,14 @@ void draw_snake (Snake *snake, int len, Config cfg) {
     DrawRectangle(snake[i].x, snake[i].y, cfg.size, cfg.size, RED);
     DrawRectangleLines(snake[i].x, snake[i].y, cfg.size, cfg.size, BLACK);
   }
+}
+
+void draw_game_over(Config cfg) {
+  const int font_size = 40;
+  const char* game_over = "GAME OVER!";
+  const int text_width = MeasureText(game_over, font_size);
+
+  DrawText(game_over, (cfg.screenWidth - text_width) / 2 , cfg.screenHeight / 2 - font_size / 2, font_size, RED);
 }
 
 

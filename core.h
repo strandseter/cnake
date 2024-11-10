@@ -29,7 +29,7 @@ typedef struct {
 } Config;
 
 Config config();
-bool game_over(Snake *snake, Config cfg);
+bool game_over(Snake *snake, int len, Config cfg);
 
 // Movement
 void change_direction(char *dir, Directions directions);
@@ -37,6 +37,7 @@ void move(char current_direction, Snake *head, Config cfg);
 
 // Draw
 void draw_snake (Snake *body, int len, Config cfg);
+void draw_game_over(Config cfg);
 
 // Debug
 void debug_print(Snake pos, char direction);

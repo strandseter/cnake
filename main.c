@@ -26,7 +26,8 @@ int main(void) {
     BeginDrawing();
     ClearBackground(RAYWHITE);
   
-    if (game_over(snake, cfg)) {
+    if (game_over(snake, len, cfg)) {
+      draw_game_over(cfg);
       game_running = false;
     }
 
