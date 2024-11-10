@@ -5,7 +5,12 @@
 #include "stdio.h"
 #include "unistd.h"
 #include "stdlib.h"
-#include <time.h>
+#include "time.h"
+
+typedef struct {
+  int x;
+  int y;
+} Snake;
 
 typedef struct {
   char right;
@@ -19,23 +24,22 @@ typedef struct {
     int speed;
     int screenWidth;
     int screenHeight;
-    Vector2 pos;
+    Snake pos;
     Directions directions;
 } Config;
 
 Config config();
-bool game_over(Vector2 pos, Config cfg);
+bool game_over(Snake pos, Config cfg);
 
 // Movement
 void change_direction(char *dir, Directions directions);
-void move(char current_direction, Vector2 *head, Config cfg);
+void move(char current_direction, Snake *head, Config cfg);
 
 // Draw
-void draw_snake (Vector2 *body, int len, Config cfg);
+void draw_snake (Snake *body, int len, Config cfg);
 
 // Debug
-void debug_print(Vector2 pos, char direction);
-void print_history(Vector2 *history, int size);
+void debug_print(Snake pos, char direction);
 void print_int(int num);
 
 #endif

@@ -11,12 +11,12 @@ int main(void) {
   bool did_eat = false;
 
   // Initializing snake
-  Vector2 *snake = malloc(sizeof(Vector2) * 1); 
-  Vector2 head = { (float)cfg.screenWidth/2, (float)cfg.screenHeight/2 };
+  Snake *snake = malloc(sizeof(Snake) * 1); 
+  Snake head = { cfg.screenWidth/2, cfg.screenHeight/2 };
   snake[0] = head;
 
   // Current food position
-  Vector2 food = { -1, -1 };
+  Snake food = { -1, -1 };
 
   // Game data
   int tick = 0;
@@ -55,7 +55,7 @@ int main(void) {
         // If food was eaten, increase the length
         if (did_eat) {
           len++;
-          snake = realloc(snake, sizeof(Vector2) * len);
+          snake = realloc(snake, sizeof(Snake) * len);
           did_eat = false;
         }
 
@@ -65,7 +65,7 @@ int main(void) {
         }
 
         // Adding the previous head as the second part of the snake
-        Vector2 prev;
+        Snake prev;
         prev.x = snake[0].x;
         prev.y = snake[0].y;
         snake[1] = prev;
