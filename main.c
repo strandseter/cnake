@@ -63,11 +63,13 @@ int main(void) {
         }
 
         move(direction, &snake[0], cfg);
+
+        tick = 0;
       }
 
       draw_food(food, cfg);
       draw_snake(snake, len, cfg);
-
+      
       tick++;
     }
 
