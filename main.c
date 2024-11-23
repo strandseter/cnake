@@ -28,15 +28,11 @@ int main(void) {
     ClearBackground(RAYWHITE);
   
     if (game_running) {
-      const bool no_food = food.x == -1 && food.y == -1;
-
-      if (no_food) {
+      if (is_no_food(food)) {
         food = spawn_food(food, snake, len, cfg);
       }
-
-      const bool is_eating = snake[0].x == food.x && snake[0].y == food.y;
       
-      if (is_eating) {
+      if (is_eating(snake, food)) {
         food = spawn_food(food, snake, len, cfg);
         did_eat = true;
       }

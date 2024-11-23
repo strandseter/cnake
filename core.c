@@ -69,6 +69,14 @@ Food spawn_food(Food food, Snake *snake, int len, Config cfg) {
   return food;
 }
 
+bool is_no_food(Food food) {
+  return food.x == -1 && food.y == -1;
+}
+
+bool is_eating(Snake *snake, Food food) {
+  return snake[0].x == food.x && snake[0].y == food.y;
+}
+
 bool game_over(Snake *snake, int len, Config cfg) {
   Snake head = snake[0];
 
