@@ -27,12 +27,14 @@ int main(void) {
     ClearBackground(RAYWHITE);
   
     if (game_running) {
+      // Tracking input outside tick to detect every user interaction
       track_input(current_direction, &input_direction, cfg.directions);
 
       // Moving the snake based on tick and speed
       if (tick % cfg.speed == 0) {
         tick = 0; 
 
+        // Applying the tracked input
         current_direction = input_direction;
 
         if (is_no_food(food)) {
