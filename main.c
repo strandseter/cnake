@@ -8,7 +8,7 @@ int main(void) {
   // Initializing snake
   int len = 1;
   Snake *snake = malloc(sizeof(Snake) * len); 
-  Snake head = { cfg.screenWidth/2, cfg.screenHeight/2 };
+  Snake head = { cfg.screenWidth / 2, cfg.screenHeight / 2 };
   snake[0] = head;
 
   // Current food position
@@ -65,29 +65,7 @@ int main(void) {
 
     if (game_over(snake, len, cfg)) {
       draw_game_over(cfg);
-
-      if (IsKeyPressed(KEY_R)) {
-        // Restarting game state
-
-        // Snake
-        len = 1;
-        snake = realloc(snake, sizeof(Snake) * len);
-
-        snake[0].x = cfg.screenWidth / 2;
-        snake[0].y = cfg.screenHeight / 2;
-
-        // Food
-        food.x = -1;
-        food.y = -1;
-
-        // Direction
-        input_direction = '_';
-        current_direction = '_';
-
-        game_running = true;
-      } else {
-        game_running = false;
-      }
+      game_running = reset(snake, &food, &len, &current_direction, &input_direction, cfg);
     }
 
     EndDrawing();

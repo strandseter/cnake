@@ -15,7 +15,7 @@ Config config() {
   directions.up = 'U';
   config.directions = directions;
 
-  InitWindow(config.screenWidth, config.screenHeight, "CS50");
+  InitWindow(config.screenWidth, config.screenHeight, "SNAKE50");
 
   SetTargetFPS(60);
 
@@ -103,6 +103,27 @@ bool game_over(Snake *snake, int len, Config cfg) {
   }
 
   return false;
+}
+
+bool reset(Snake *snake, Food *food, int *len, char *current_direction, char *input_direction, Config cfg) {
+  if (IsKeyPressed(KEY_R)) {
+    // Snake
+    *len = 1;
+    snake = realloc(snake, sizeof(Snake) * *len);
+    snake[0].x = cfg.screenWidth / 2;
+    snake[0].y = cfg.screenHeight / 2;
+
+    // Food
+    food->x = -1;
+    food->y = -1;
+
+    *current_direction = '_';
+    *input_direction = '_';
+
+    return true;
+  } else {
+    return false;
+  }
 }
 
 void draw_snake (Snake *snake, int len, Config cfg) {
