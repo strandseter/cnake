@@ -149,7 +149,7 @@ void draw_game_over(int score) {
 
   DrawText(game_over, (cfg.screenWidth - go_text_width) / 2 , cfg.screenHeight / 2 - go_font_size / 2, go_font_size, RED);
   DrawText(score_text, (cfg.screenWidth - s_text_width) / 2 , (cfg.screenHeight / 2 - s_font_size / 2) + 40, s_font_size, RED);
-  DrawText(retry, (cfg.screenWidth - r_text_width) / 2 , (cfg.screenHeight / 2 - r_font_size / 2) + 80, r_font_size, RED);
+  DrawText(retry, (cfg.screenWidth - r_text_width) / 2 , (cfg.screenHeight / 2 - r_font_size / 2) + 100, r_font_size, RED);
 }
 
 void draw_food(Food food) {
