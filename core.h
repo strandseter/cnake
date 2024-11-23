@@ -33,25 +33,27 @@ typedef struct {
     Directions directions;
 } Config;
 
-Config config();
-bool game_over(Snake *snake, int len, Config cfg);
-bool reset(Snake *snake, Food *food, int *len, char *current_direction, char *input_direction, Config cfg);
+Config cfg;
+void initialize_config();
+
+bool game_over(Snake *snake, int lenr);
+bool reset(Snake *snake, Food *food, int *len, char *current_direction, char *input_directionr);
 
 // Food
-Food spawn_food(Food food, Snake *snake, int len, char current_direction, Config cfg) ;
+Food spawn_food(Food food, Snake *snake, int len, char current_directionr) ;
 bool is_no_food(Food food);
 bool is_eating(Snake *snake, Food food);
 
 // Movement
 void track_input(char current_direction, char *input_direction, Directions directions);
 void shift_body(Snake *snake, int len);
-void move_head(char current_direction, Snake *head, Config cfg);
+void move_head(char current_direction, Snake *headr);
 
 // Draw
-void draw_snake (Snake *body, int len, Config cfg);
-void draw_game_over(Config cfg);
-void draw_food(Food food, Config cfg);
-void draw_start(char current_direction, Config cfg);
+void draw_snake (Snake *body, int lenr);
+void draw_game_over();
+void draw_food(Food foodr);
+void draw_start(char current_directionr);
 
 // Debug
 void debug_print(Snake pos, char direction);

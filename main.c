@@ -3,7 +3,7 @@
 int main(void) {
   srand(time(NULL));
 
-  Config cfg = config();
+  initialize_config();
 
   // Initializing snake
   int len = 1;
@@ -24,6 +24,7 @@ int main(void) {
 
   while (!WindowShouldClose()) {
     BeginDrawing();
+
     ClearBackground(RAYWHITE);
   
     if (game_running) {
@@ -38,7 +39,7 @@ int main(void) {
         current_direction = input_direction;
 
         if (is_no_food(food)) {
-          food = spawn_food(food, snake, len, current_direction, cfg);
+          food = spawn_food(food, snake, len, current_direction);
         }
       
         if (is_eating(snake, food)) {
@@ -46,23 +47,23 @@ int main(void) {
           len++;
           snake = realloc(snake, sizeof(Snake) * len);
 
-          food = spawn_food(food, snake, len, current_direction, cfg);
+          food = spawn_food(food, snake, len, current_direction);
         }
 
         shift_body(snake, len);
-        move_head(current_direction, &snake[0], cfg);
+        move_head(current_direction, &snake[0]);
       }
 
-      draw_start(current_direction, cfg);
-      draw_food(food, cfg);
-      draw_snake(snake, len, cfg);
+      draw_start(current_direction);
+      draw_food(food);
+      draw_snake(snake, len);
 
       tick++;
     }
 
-    if (game_over(snake, len, cfg)) {
+    if (game_over(snake, len)) {
       draw_game_over(cfg);
-      game_running = reset(snake, &food, &len, &current_direction, &input_direction, cfg);
+      game_running = reset(snake, &food, &len, &current_direction, &input_direction);
     }
 
     EndDrawing();

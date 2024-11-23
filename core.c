@@ -1,25 +1,22 @@
 #include "core.h"
 
-Config config() {
-  Config config;
+Config cfg;
 
-  config.size = 10;
-  config.speed = 3;
-  config.screenWidth = 400;
-  config.screenHeight = 400;
+void initialize_config() {
+  cfg.size = 10;
+  cfg.speed = 3;
+  cfg.screenWidth = 400;
+  cfg.screenHeight = 400;
 
   Directions directions;
   directions.right = 'R';
   directions.down = 'D';
   directions.left = 'L';
   directions.up = 'U';
-  config.directions = directions;
+  cfg.directions = directions;
 
-  InitWindow(config.screenWidth, config.screenHeight, "CNAKE");
-
+  InitWindow(cfg.screenWidth, cfg.screenHeight, "CNAKE");
   SetTargetFPS(60);
-
-  return config;
 }
 
 void track_input(char current_direction, char *input_direction, Directions directions) {
@@ -43,14 +40,14 @@ void shift_body(Snake *snake, int len) {
   }
 }
 
-void move_head(char current_direction, Snake *head, Config cfg) {
+void move_head(char current_direction, Snake *head) {
   if (current_direction == cfg.directions.right) head->x += cfg.size;
   if (current_direction == cfg.directions.down) head->y += cfg.size;
   if (current_direction == cfg.directions.left) head->x -= cfg.size;
   if (current_direction == cfg.directions.up) head->y -= cfg.size;
 }
 
-Food spawn_food(Food food, Snake *snake, int len, char current_direction, Config cfg) {
+Food spawn_food(Food food, Snake *snake, int len, char current_direction) {
   if (current_direction == '_') {
     return food;
   }
@@ -82,7 +79,7 @@ bool is_eating(Snake *snake, Food food) {
   return snake[0].x == food.x && snake[0].y == food.y;
 }
 
-bool game_over(Snake *snake, int len, Config cfg) {
+bool game_over(Snake *snake, int len) {
   Snake head = snake[0];
 
   const bool is_right_border = head.x == cfg.screenWidth;
@@ -110,7 +107,7 @@ bool game_over(Snake *snake, int len, Config cfg) {
   return false;
 }
 
-bool reset(Snake *snake, Food *food, int *len, char *current_direction, char *input_direction, Config cfg) {
+bool reset(Snake *snake, Food *food, int *len, char *current_direction, char *input_direction) {
   if (IsKeyPressed(KEY_R)) {
     // Snake
     *len = 1;
@@ -131,14 +128,14 @@ bool reset(Snake *snake, Food *food, int *len, char *current_direction, char *in
   }
 }
 
-void draw_snake (Snake *snake, int len, Config cfg) {
+void draw_snake (Snake *snake, int len) {
   for (int i = 0; i < len; i++) {
     DrawRectangle(snake[i].x, snake[i].y, cfg.size, cfg.size, RED);
     DrawRectangleLines(snake[i].x, snake[i].y, cfg.size, cfg.size, BLACK);
   }
 }
 
-void draw_game_over(Config cfg) {
+void draw_game_over() {
   const char* game_over = "GAME OVER!";
   const char* retry = "Press R to retry";
 
@@ -152,7 +149,7 @@ void draw_game_over(Config cfg) {
   DrawText(retry, (cfg.screenWidth - r_text_width) / 2 , (cfg.screenHeight / 2 - r_font_size / 2) + 40, r_font_size, RED);
 }
 
-void draw_food(Food food, Config cfg) {
+void draw_food(Food food) {
   if (food.x == -1 && food.y == -1) {
     return;
   }
@@ -160,7 +157,7 @@ void draw_food(Food food, Config cfg) {
   DrawRectangle(food.x, food.y, cfg.size, cfg.size, BLUE);
 }
 
-void draw_start(char current_direction, Config cfg) {
+void draw_start(char current_direction) {
   if (current_direction != '_') {
     return;
   }
@@ -172,7 +169,7 @@ void draw_start(char current_direction, Config cfg) {
   DrawText(start, (cfg.screenWidth - text_width) / 2 , (cfg.screenHeight / 2 - font_size / 2) - 40, font_size, RED);
 }
 
-
+// Debug helpers
 
 void debug_print(Snake pos, char direction) {
   printf("Current direction: %c\n", direction);
