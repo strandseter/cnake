@@ -21,22 +21,12 @@ int main(void) {
   // Controls
   char current_direction = '_';
   char input_direction = '_';
-  bool did_eat = false;
 
   while (!WindowShouldClose()) {
     BeginDrawing();
     ClearBackground(RAYWHITE);
   
     if (game_running) {
-      if (is_no_food(food)) {
-        food = spawn_food(food, snake, len, cfg);
-      }
-      
-      if (is_eating(snake, food)) {
-        food = spawn_food(food, snake, len, cfg);
-        did_eat = true;
-      }
-      
       track_input(current_direction, &input_direction, cfg.directions);
 
       // Moving the snake based on tick and speed
@@ -45,15 +35,19 @@ int main(void) {
 
         current_direction = input_direction;
 
-        // If food was eaten, increase the length
-        if (did_eat) {
+        if (is_no_food(food)) {
+          food = spawn_food(food, snake, len, cfg);
+        }
+      
+        if (is_eating(snake, food)) {
+          // Increase length of snake
           len++;
           snake = realloc(snake, sizeof(Snake) * len);
-          did_eat = false;
+
+          food = spawn_food(food, snake, len, cfg);
         }
 
         shift_body(snake, len);
-
         move_head(current_direction, &snake[0], cfg);
       }
 
