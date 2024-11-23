@@ -31,13 +31,13 @@ int main(void) {
       const bool no_food = food.x == -1 && food.y == -1;
 
       if (no_food) {
-        food = spawn_food(food, cfg);
+        food = spawn_food(food, snake, len, cfg);
       }
 
       const bool is_eating = snake[0].x == food.x && snake[0].y == food.y;
       
       if (is_eating) {
-        food = spawn_food(food, cfg);
+        food = spawn_food(food, snake, len, cfg);
         did_eat = true;
       }
       

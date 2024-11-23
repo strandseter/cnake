@@ -35,7 +35,7 @@ typedef struct {
 
 Config config();
 bool game_over(Snake *snake, int len, Config cfg);
-Food spawn_food(Food food, Config cfg);
+Food spawn_food(Food food, Snake *snake, int len, Config cfg);
 
 // Movement
 void track_input(char current_direction, char *input_direction, Directions directions);

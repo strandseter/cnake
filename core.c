@@ -50,9 +50,22 @@ void move_head(char current_direction, Snake *head, Config cfg) {
   if (current_direction == cfg.directions.up) head->y -= cfg.size;
 }
 
-Food spawn_food(Food food, Config cfg) {
-  food.x = (rand() % (cfg.screenWidth / cfg.size)) * cfg.size;
-  food.y = (rand() % (cfg.screenHeight / cfg.size)) * cfg.size;
+Food spawn_food(Food food, Snake *snake, int len, Config cfg) {
+  int x = (rand() % (cfg.screenWidth / cfg.size)) * cfg.size;
+  int y = (rand() % (cfg.screenHeight / cfg.size)) * cfg.size;
+
+  for (int i = 0; i < len; i++) {
+    while (snake[i].x == x && snake[i].y == y) {
+      x = (rand() % (cfg.screenWidth / cfg.size)) * cfg.size;
+      y = (rand() % (cfg.screenHeight / cfg.size)) * cfg.size;
+    }
+  }
+
+  // TODO: Check if snake covers whole screen
+
+  food.x = x;
+  food.y = y;
+
   return food;
 }
 
@@ -93,10 +106,15 @@ void draw_snake (Snake *snake, int len, Config cfg) {
 
 void draw_game_over(Config cfg) {
   const int font_size = 40;
-  const char* game_over = "GAME OVER!";
-  const int text_width = MeasureText(game_over, font_size);
 
-  DrawText(game_over, (cfg.screenWidth - text_width) / 2 , cfg.screenHeight / 2 - font_size / 2, font_size, RED);
+  const char* game_over = "GAME OVER!";
+  const char* retry = "Press R to retry";
+
+  const int go_text_width = MeasureText(game_over, font_size);
+  const int r_text_width = MeasureText(game_over, font_size);
+
+  DrawText(game_over, (cfg.screenWidth - go_text_width) / 2 , cfg.screenHeight / 2 - font_size / 2, font_size, RED);
+  DrawText(retry, (cfg.screenWidth - go_text_width) / 2 , (cfg.screenHeight / 2 - font_size / 2) + 40, font_size / 2, RED);
 }
 
 void draw_food(Food food, Config cfg) {
