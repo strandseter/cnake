@@ -14,7 +14,7 @@ int main(void) {
   // Current food position
   Food food = { -1, -1 };
 
-  // Game data
+  // Game state
   int tick = 0;
   bool game_running = true;
 
@@ -31,6 +31,9 @@ int main(void) {
       // Tracking input outside tick to detect every user interaction
       track_input(current_direction, &input_direction, cfg.directions);
 
+      // Drawing start instructions if not started
+      draw_start(current_direction);
+
       // Moving the snake based on tick and speed
       if (tick % cfg.speed == 0) {
         tick = 0; 
@@ -42,8 +45,8 @@ int main(void) {
           food = spawn_food(food, snake, len, current_direction);
         }
       
+        // Increase length of snake when eating
         if (is_eating(snake, food)) {
-          // Increase length of snake
           len++;
           snake = realloc(snake, sizeof(Snake) * len);
 
@@ -54,7 +57,6 @@ int main(void) {
         move_head(current_direction, &snake[0]);
       }
 
-      draw_start(current_direction);
       draw_food(food);
       draw_snake(snake, len);
 

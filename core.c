@@ -62,9 +62,6 @@ Food spawn_food(Food food, Snake *snake, int len, char current_direction) {
     }
   }
 
-  // TODO: Check if snake covers whole screen
-  int max = 
-
   food.x = x;
   food.y = y;
 

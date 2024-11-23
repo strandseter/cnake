@@ -36,6 +36,7 @@ typedef struct {
 Config cfg;
 void initialize_config();
 
+// Game state
 bool game_over(Snake *snake, int lenr);
 bool reset(Snake *snake, Food *food, int *len, char *current_direction, char *input_directionr);
 
