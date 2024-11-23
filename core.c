@@ -50,7 +50,11 @@ void move_head(char current_direction, Snake *head, Config cfg) {
   if (current_direction == cfg.directions.up) head->y -= cfg.size;
 }
 
-Food spawn_food(Food food, Snake *snake, int len, Config cfg) {
+Food spawn_food(Food food, Snake *snake, int len, char current_direction, Config cfg) {
+  if (current_direction == '_') {
+    return food;
+  }
+
   int x = (rand() % (cfg.screenWidth / cfg.size)) * cfg.size;
   int y = (rand() % (cfg.screenHeight / cfg.size)) * cfg.size;
 
@@ -62,6 +66,7 @@ Food spawn_food(Food food, Snake *snake, int len, Config cfg) {
   }
 
   // TODO: Check if snake covers whole screen
+  int max = 
 
   food.x = x;
   food.y = y;
@@ -149,6 +154,10 @@ void draw_game_over(Config cfg) {
 }
 
 void draw_food(Food food, Config cfg) {
+  if (food.x == -1 && food.y == -1) {
+    return;
+  }
+
   DrawRectangle(food.x, food.y, cfg.size, cfg.size, BLUE);
 }
 

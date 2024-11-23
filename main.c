@@ -40,7 +40,7 @@ int main(void) {
         current_direction = input_direction;
 
         if (is_no_food(food)) {
-          food = spawn_food(food, snake, len, cfg);
+          food = spawn_food(food, snake, len, current_direction, cfg);
         }
       
         if (is_eating(snake, food)) {
@@ -48,7 +48,7 @@ int main(void) {
           len++;
           snake = realloc(snake, sizeof(Snake) * len);
 
-          food = spawn_food(food, snake, len, cfg);
+          food = spawn_food(food, snake, len, current_direction, cfg);
         }
 
         shift_body(snake, len);

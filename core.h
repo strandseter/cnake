@@ -38,7 +38,7 @@ bool game_over(Snake *snake, int len, Config cfg);
 bool reset(Snake *snake, Food *food, int *len, char *current_direction, char *input_direction, Config cfg);
 
 // Food
-Food spawn_food(Food food, Snake *snake, int len, Config cfg);
+Food spawn_food(Food food, Snake *snake, int len, char current_direction, Config cfg) ;
 bool is_no_food(Food food);
 bool is_eating(Snake *snake, Food food);
 
