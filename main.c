@@ -69,7 +69,24 @@ int main(void) {
 
     if (game_over(snake, len, cfg)) {
       draw_game_over(cfg);
-      game_running = false;
+
+      if (IsKeyPressed(KEY_R)) {
+        // Restarting game state
+
+        len = 1;
+
+        food.x = -1;
+        food.y = -1;
+
+        snake = realloc(snake, sizeof(Snake));
+        
+        snake[0].x = cfg.screenWidth / 2;
+        snake[0].y = cfg.screenHeight / 2;
+
+        game_running = true;
+      } else {
+        game_running = false;
+      }
     }
 
     EndDrawing();

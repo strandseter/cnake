@@ -105,16 +105,18 @@ void draw_snake (Snake *snake, int len, Config cfg) {
 }
 
 void draw_game_over(Config cfg) {
-  const int font_size = 40;
 
   const char* game_over = "GAME OVER!";
   const char* retry = "Press R to retry";
 
-  const int go_text_width = MeasureText(game_over, font_size);
-  const int r_text_width = MeasureText(game_over, font_size);
+  const int go_font_size = 40;
+  const int r_font_size = 20;
 
-  DrawText(game_over, (cfg.screenWidth - go_text_width) / 2 , cfg.screenHeight / 2 - font_size / 2, font_size, RED);
-  DrawText(retry, (cfg.screenWidth - go_text_width) / 2 , (cfg.screenHeight / 2 - font_size / 2) + 40, font_size / 2, RED);
+  const int go_text_width = MeasureText(game_over, go_font_size);
+  const int r_text_width = MeasureText(retry, r_font_size);
+
+  DrawText(game_over, (cfg.screenWidth - go_text_width) / 2 , cfg.screenHeight / 2 - go_font_size / 2, go_font_size, RED);
+  DrawText(retry, (cfg.screenWidth - r_text_width) / 2 , (cfg.screenHeight / 2 - r_font_size / 2) + 40, r_font_size, RED);
 }
 
 void draw_food(Food food, Config cfg) {
