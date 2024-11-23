@@ -73,15 +73,20 @@ int main(void) {
       if (IsKeyPressed(KEY_R)) {
         // Restarting game state
 
+        // Snake
         len = 1;
+        snake = realloc(snake, sizeof(Snake) * len);
 
+        snake[0].x = cfg.screenWidth / 2;
+        snake[0].y = cfg.screenHeight / 2;
+
+        // Food
         food.x = -1;
         food.y = -1;
 
-        snake = realloc(snake, sizeof(Snake));
-        
-        snake[0].x = cfg.screenWidth / 2;
-        snake[0].y = cfg.screenHeight / 2;
+        // Direction
+        input_direction = '_';
+        current_direction = '_';
 
         game_running = true;
       } else {
