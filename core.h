@@ -51,6 +51,7 @@ void move_head(char current_direction, Snake *head, Config cfg);
 void draw_snake (Snake *body, int len, Config cfg);
 void draw_game_over(Config cfg);
 void draw_food(Food food, Config cfg);
+void draw_start(char current_direction, Config cfg);
 
 // Debug
 void debug_print(Snake pos, char direction);

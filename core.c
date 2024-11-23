@@ -15,7 +15,7 @@ Config config() {
   directions.up = 'U';
   config.directions = directions;
 
-  InitWindow(config.screenWidth, config.screenHeight, "SNAKE50");
+  InitWindow(config.screenWidth, config.screenHeight, "CNAKE");
 
   SetTargetFPS(60);
 
@@ -139,7 +139,6 @@ void draw_snake (Snake *snake, int len, Config cfg) {
 }
 
 void draw_game_over(Config cfg) {
-
   const char* game_over = "GAME OVER!";
   const char* retry = "Press R to retry";
 
@@ -161,8 +160,17 @@ void draw_food(Food food, Config cfg) {
   DrawRectangle(food.x, food.y, cfg.size, cfg.size, BLUE);
 }
 
+void draw_start(char current_direction, Config cfg) {
+  if (current_direction != '_') {
+    return;
+  }
 
+  const char* start = "Press ARROW to start";
+  const int font_size = 20;
+  const int text_width = MeasureText(start, font_size);
 
+  DrawText(start, (cfg.screenWidth - text_width) / 2 , (cfg.screenHeight / 2 - font_size / 2) - 40, font_size, RED);
+}
 
 
 
