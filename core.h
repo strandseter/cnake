@@ -52,7 +52,7 @@ void move_head(char current_direction, Snake *headr);
 
 // Draw
 void draw_snake (Snake *body, int lenr);
-void draw_game_over();
+void draw_game_over(int score);
 void draw_food(Food foodr);
 void draw_start(char current_directionr);
 
