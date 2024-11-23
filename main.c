@@ -30,6 +30,8 @@ int main(void) {
       // Tracking input outside tick to detect every user interaction
       track_input(current_direction, &input_direction, cfg.directions);
 
+      // Test
+
       // Moving the snake based on tick and speed
       if (tick % cfg.speed == 0) {
         tick = 0; 
