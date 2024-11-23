@@ -64,7 +64,7 @@ int main(void) {
     }
 
     if (game_over(snake, len)) {
-      draw_game_over(cfg);
+      draw_game_over();
       game_running = reset(snake, &food, &len, &current_direction, &input_direction);
     }
 
