@@ -16,7 +16,7 @@ typedef struct {
 typedef struct {
   int x;
   int y;
-} Vector;
+} Pos;
 
 typedef enum {
     RIGHT, 
@@ -26,21 +26,22 @@ typedef enum {
     NONE,
 } Direction;
 
-bool is_game_running;
-
 // Global variables
 
 Config config;
 
+bool is_game_running;
+
 int len;
 
-Vector *snake;
-Vector food;
+Pos *snake;
+Pos food;
 
 Direction input;
 Direction direction;
 
 // Prototypes
+
 void init();
 void track_input();
 void change_direction();
@@ -156,7 +157,7 @@ void eat()
 
   len++;
 
-  snake = realloc(snake, sizeof(Vector) * len);
+  snake = realloc(snake, sizeof(Pos) * len);
 
   if (snake == NULL) {
     fprintf(stderr, "Failed to reallocate memory for snake\n");
@@ -292,14 +293,14 @@ void init_game()
   is_game_running = true;
 
   len = 1;
-  snake = malloc(sizeof(Vector) * len); 
+  snake = malloc(sizeof(Pos) * len); 
 
   if (snake == NULL) {
     fprintf(stderr, "Failed to allocate memory for snake\n");
     exit(EXIT_FAILURE);
   }
 
-  Vector head = { config.screenWidth / 2, config.screenHeight / 2 };
+  Pos head = { config.screenWidth / 2, config.screenHeight / 2 };
   snake[0] = head;
 
   spawn_food();
@@ -313,14 +314,14 @@ void reset_game()
   is_game_running = true;
 
   len = 1;
-  snake = realloc(snake, sizeof(Vector) * len);
+  snake = realloc(snake, sizeof(Pos) * len);
 
   if (snake == NULL) {
     fprintf(stderr, "Failed to reallocate memory for snake\n");
     exit(EXIT_FAILURE);
   }
 
-  Vector head = { config.screenWidth / 2, config.screenHeight / 2 };
+  Pos head = { config.screenWidth / 2, config.screenHeight / 2 };
   snake[0] = head;
 
   spawn_food();
