@@ -215,9 +215,8 @@ void draw_start()
 
 void draw_food()
 {
-  if (direction == NONE) return;
-
   DrawRectangle(food.x, food.y, config.size, config.size, BLUE);
+  DrawRectangleLines(food.x, food.y, config.size, config.size, BLACK);
 }
 
 void draw_snake() 
@@ -285,27 +284,6 @@ void track_input()
   }
 }
 
-void init_game()
-{
-  input = NONE;
-  direction = NONE;
-
-  is_game_running = true;
-
-  len = 1;
-  snake = malloc(sizeof(Pos) * len); 
-
-  if (snake == NULL) {
-    fprintf(stderr, "Failed to allocate memory for snake\n");
-    exit(EXIT_FAILURE);
-  }
-
-  Pos head = { config.screenWidth / 2, config.screenHeight / 2 };
-  snake[0] = head;
-
-  spawn_food();
-}
-
 void reset_game()
 {
   input = NONE;
@@ -327,6 +305,27 @@ void reset_game()
   spawn_food();
 
   sleep(3);
+}
+
+void init_game()
+{
+  input = NONE;
+  direction = NONE;
+
+  is_game_running = true;
+
+  len = 1;
+  snake = malloc(sizeof(Pos) * len); 
+
+  if (snake == NULL) {
+    fprintf(stderr, "Failed to allocate memory for snake\n");
+    exit(EXIT_FAILURE);
+  }
+
+  Pos head = { config.screenWidth / 2, config.screenHeight / 2 };
+  snake[0] = head;
+
+  spawn_food();
 }
 
 void init_config()

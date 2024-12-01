@@ -13,3 +13,6 @@ run: $(TARGET)
 
 clean:
 	rm -f $(TARGET)
+
+leaks: $(TARGET)
+	leaks --atExit -- ./$(TARGET)
