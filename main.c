@@ -248,18 +248,22 @@ void draw_game_over()
   snprintf(score_text, sizeof(score_text), "Score: %d", score);
 
   const char* game_over = "GAME OVER!";
+  const char* retry = "Press R to retry";
 
   const int go_font_size = 40;
   const int s_font_size = 20;
+  const int r_font_size = 20;
 
   const int go_text_width = MeasureText(game_over, go_font_size);
   const int s_text_width = MeasureText(score_text, s_font_size);
+  const int r_text_width = MeasureText(retry, r_font_size);
 
   BeginDrawing();
   ClearBackground(RAYWHITE);
 
     DrawText(game_over, (config.screenWidth - go_text_width) / 2 , config.screenHeight / 2 - go_font_size / 2, go_font_size, RED);
     DrawText(score_text, (config.screenWidth - s_text_width) / 2 , (config.screenHeight / 2 - s_font_size / 2) + 40, s_font_size, RED);
+    DrawText(retry, (config.screenWidth - r_text_width) / 2 , (config.screenHeight / 2 - r_font_size / 2) + 100, r_font_size, RED);
   
   EndDrawing();
 }
@@ -284,28 +288,7 @@ void track_input()
   }
 }
 
-void reset_game()
-{
-  input = NONE;
-  direction = NONE;
 
-  is_game_running = true;
-
-  len = 1;
-  snake = realloc(snake, sizeof(Pos) * len);
-
-  if (snake == NULL) {
-    fprintf(stderr, "Failed to reallocate memory for snake\n");
-    exit(EXIT_FAILURE);
-  }
-
-  Pos head = { config.screenWidth / 2, config.screenHeight / 2 };
-  snake[0] = head;
-
-  spawn_food();
-
-  sleep(3);
-}
 
 void init_game()
 {
@@ -347,4 +330,13 @@ void init()
 {
   init_config();
   init_game();
+}
+
+void reset_game()
+{
+  if (IsKeyPressed(KEY_R))
+  {
+    free(snake);
+    init_game();
+  }
 }
