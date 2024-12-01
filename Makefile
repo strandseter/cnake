@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -I/opt/homebrew/include -L/opt/homebrew/lib -lraylib -framework CoreVideo -framework IOKit -framework Cocoa -framework GLUT -framework OpenGL
-SRCS = main.c core.c
+SRCS = main2.c
 TARGET = build
 
 all: $(TARGET)
