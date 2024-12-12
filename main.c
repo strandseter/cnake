@@ -9,8 +9,10 @@
 typedef struct {
   int size;
   int speed;
-  int screenWidth;
-  int screenHeight;
+  int mapWidth;
+  int mapHeight;
+  int windowWidth;
+  int windowHeight;
 } Config;
 
 typedef struct {
@@ -100,8 +102,8 @@ int main(void)
 
 void game_over()
 {
-  const bool is_right_border = snake[0].x == config.screenWidth;
-  const bool is_bottom_border = snake[0].y == config.screenHeight;
+  const bool is_right_border = snake[0].x == config.mapWidth;
+  const bool is_bottom_border = snake[0].y == config.mapHeight;
   const bool is_left_border = (snake[0].x + config.size) == 0;
   const bool is_top_border = (snake[0].y + config.size) == 0;
 
@@ -169,13 +171,13 @@ void eat()
 
 void spawn_food()
 {
-  int x = (rand() % (config.screenWidth / config.size)) * config.size;
-  int y = (rand() % (config.screenHeight / config.size)) * config.size;
+  int x = (rand() % (config.mapWidth / config.size)) * config.size;
+  int y = (rand() % (config.mapHeight / config.size)) * config.size;
 
   for (int i = 0; i < len; i++) {
     while (snake[i].x == x && snake[i].y == y) {
-      x = (rand() % (config.screenWidth / config.size)) * config.size;
-      y = (rand() % (config.screenHeight / config.size)) * config.size;
+      x = (rand() % (config.mapWidth / config.size)) * config.size;
+      y = (rand() % (config.mapHeight / config.size)) * config.size;
     }
   }
 
@@ -210,7 +212,7 @@ void draw_start()
   const char* start = "Press ARROW to start";
   const int font_size = 20;
 
-  DrawText(start, (config.screenWidth -  MeasureText(start, font_size)) / 2 , (config.screenHeight / 2 - font_size / 2) - 40, font_size, RED);
+  DrawText(start, (config.mapWidth -  MeasureText(start, font_size)) / 2 , (config.mapHeight / 2 - font_size / 2) - 40, font_size, RED);
 }
 
 void draw_food()
@@ -228,14 +230,30 @@ void draw_snake()
   }
 }
 
+void draw_score()
+{
+  char score_text[50];
+  snprintf(score_text, sizeof(score_text), "Score: %d", len);
+
+  // Draw at bottom right
+  DrawText(score_text, 10, config.windowHeight - 30, 20, BLACK);
+}
+
+void draw_border()
+{
+  DrawRectangleLines(0, 0, config.mapWidth, config.mapHeight, GRAY);
+}
+
 void draw_game() 
 {
   BeginDrawing();
   ClearBackground(RAYWHITE);
 
+    draw_border();
     draw_start();
     draw_food();
     draw_snake(); 
+    draw_score();
     
   EndDrawing();
 }
@@ -261,9 +279,9 @@ void draw_game_over()
   BeginDrawing();
   ClearBackground(RAYWHITE);
 
-    DrawText(game_over, (config.screenWidth - go_text_width) / 2 , config.screenHeight / 2 - go_font_size / 2, go_font_size, RED);
-    DrawText(score_text, (config.screenWidth - s_text_width) / 2 , (config.screenHeight / 2 - s_font_size / 2) + 40, s_font_size, RED);
-    DrawText(retry, (config.screenWidth - r_text_width) / 2 , (config.screenHeight / 2 - r_font_size / 2) + 100, r_font_size, RED);
+    DrawText(game_over, (config.mapWidth - go_text_width) / 2 , config.mapHeight / 2 - go_font_size / 2, go_font_size, RED);
+    DrawText(score_text, (config.mapWidth - s_text_width) / 2 , (config.mapHeight / 2 - s_font_size / 2) + 40, s_font_size, RED);
+    DrawText(retry, (config.mapWidth - r_text_width) / 2 , (config.mapHeight / 2 - r_font_size / 2) + 100, r_font_size, RED);
   
   EndDrawing();
 }
@@ -288,8 +306,6 @@ void track_input()
   }
 }
 
-
-
 void init_game()
 {
   input = NONE;
@@ -305,7 +321,7 @@ void init_game()
     exit(EXIT_FAILURE);
   }
 
-  Pos head = { config.screenWidth / 2, config.screenHeight / 2 };
+  Pos head = { config.mapWidth / 2, config.mapHeight / 2 };
   snake[0] = head;
 
   spawn_food();
@@ -318,11 +334,13 @@ void init_config()
   // Custom config
   config.size = 10;
   config.speed = 3;
-  config.screenWidth = 400;
-  config.screenHeight = 400;
+  config.mapWidth = 440;
+  config.mapHeight = 400;
+  config.windowWidth = 440;
+  config.windowHeight = 440;
 
   // Raylib
-  InitWindow(config.screenWidth, config.screenHeight, "CNAKE");
+  InitWindow(config.windowWidth, config.windowHeight, "CNAKE");
   SetTargetFPS(60);
 }
 
@@ -340,3 +358,14 @@ void reset_game()
     init_game();
   }
 }
+
+
+// TODO:
+
+//Score Display: Display the current score on the screen during gameplay.
+//High Score Tracking: Save and display the highest score achieved.
+//Levels or Difficulty Settings: Add different levels or difficulty settings that increase the game's complexity.
+//Sound Effects: Add sound effects for actions like eating food or game over.
+//Menu System: Implement a start menu, pause menu, and game over screen with options to restart or quit.
+//Code Documentation: Add comments and documentation to explain the code and its functionality.
+//Error Handling: Improve error handling and edge case management.
