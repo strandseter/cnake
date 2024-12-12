@@ -28,11 +28,17 @@ typedef enum {
     NONE,
 } Direction;
 
+typedef enum {
+  RUNNING,
+  PAUSED,
+  GAME_OVER,
+} State;
+
 // Global variables
 
 Config config;
 
-bool is_game_running;
+State state;
 
 int len;
 
@@ -69,7 +75,7 @@ int main(void)
     {
       tick = 0;
 
-      if (is_game_running)
+      if (state == RUNNING)
       {
         change_direction();
         eat();
@@ -82,7 +88,7 @@ int main(void)
       }
     }
 
-    if (is_game_running)
+    if (state == RUNNING)
     {
       draw_game();
     } 
@@ -111,7 +117,7 @@ void game_over()
 
   if (is_at_border)
   {
-    is_game_running = false;
+    state = GAME_OVER;
     return;
   }
 
@@ -121,7 +127,7 @@ void game_over()
 
     if (is_self_coliding) 
     {
-      is_game_running = false;
+      state = GAME_OVER;
       return;
     }
   }
@@ -311,7 +317,7 @@ void init_game()
   input = NONE;
   direction = NONE;
 
-  is_game_running = true;
+  state = RUNNING;
 
   len = 1;
   snake = malloc(sizeof(Pos) * len); 
