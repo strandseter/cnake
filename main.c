@@ -52,6 +52,7 @@ Direction direction;
 
 void init();
 void quit();
+void toggle_pause();
 void track_pause();
 void track_restart();
 void track_quit();
@@ -385,14 +386,7 @@ void track_pause()
 {
   if (IsKeyPressed(KEY_P))
   {
-    if (state == PAUSED)
-    {
-      state = RUNNING;
-    }
-    else
-    {
-      state = PAUSED;
-    }
+    toggle_pause();
   }
 }
 
@@ -401,6 +395,18 @@ void track_quit()
   if (IsKeyPressed(KEY_ESCAPE))
   {
     quit();
+  }
+}
+
+void toggle_pause()
+{
+  if (state == PAUSED)
+  {
+    state = RUNNING;
+  }
+  else
+  {
+    state = PAUSED;
   }
 }
 
