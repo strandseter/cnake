@@ -53,6 +53,7 @@ Direction direction;
 
 void init();
 void quit();
+void save_high_score();
 void toggle_pause();
 void track_pause();
 void track_restart();
@@ -115,7 +116,7 @@ int main(void)
     EndDrawing();
   }
 
-  //save_high_score();
+  save_high_score();
 
   quit();
 }
@@ -155,8 +156,9 @@ void game_over()
     if (score != high_score)
     {
       high_score = score;
-      state = GAME_OVER;
     }
+
+    state = GAME_OVER;
   }
 }
 
@@ -268,8 +270,11 @@ void draw_score()
   char score_text[50];
   snprintf(score_text, sizeof(score_text), "Score: %d", score);
 
-  // Draw at bottom right
+  char high_score_text[50];
+  snprintf(high_score_text, sizeof(high_score_text), "High Score: %d", high_score);
+
   DrawText(score_text, 10, config.windowHeight - 30, 20, BLACK);
+  DrawText(high_score_text, config.windowWidth - MeasureText(high_score_text, 20) - 10, config.windowHeight - 30, 20, BLACK);
 }
 
 void draw_border()
@@ -381,9 +386,25 @@ void init_config()
   SetTargetFPS(60);
 }
 
+void init_high_score()
+{
+  FILE *file = fopen("./db/high_score.txt", "r");
+
+  if (file == NULL)
+  {
+    fprintf(stderr, "Failed to open file\n");
+    exit(EXIT_FAILURE);
+  }
+
+  fscanf(file, "%d", &high_score);
+
+  fclose(file);
+}
+
 void init()
 {
   init_config();
+  init_high_score();
   init_game();
 }
 
@@ -429,6 +450,21 @@ void quit()
   free(snake);
   CloseWindow();
   exit(EXIT_SUCCESS);
+}
+
+void save_high_score()
+{
+  FILE *file = fopen("./db/high_score.txt", "w");
+
+  if (file == NULL)
+  {
+    fprintf(stderr, "Failed to open file\n");
+    exit(EXIT_FAILURE);
+  }
+
+  fprintf(file, "%d", high_score);
+
+  fclose(file);
 }
 
 // TODO:
