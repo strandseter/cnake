@@ -51,9 +51,11 @@ Direction direction;
 // Prototypes
 
 void init();
-void track_arrow_keys();
-void track_restart();
+void quit();
 void track_pause();
+void track_restart();
+void track_quit();
+void track_arrow_keys();
 void change_direction();
 void spawn_food();
 void eat();
@@ -73,6 +75,7 @@ int main(void)
   {
     track_pause();
     track_restart();
+    track_quit();
     track_arrow_keys();
 
     if (tick % config.speed == 0)
@@ -110,10 +113,7 @@ int main(void)
     EndDrawing();
   }
 
-  free(snake);
-
-  CloseWindow();
-  return 0;
+  quit();
 }
 
 void game_over()
@@ -277,7 +277,7 @@ void draw_game_over()
   snprintf(score_text, sizeof(score_text), "Score: %d", score);
 
   const char* game_over = "GAME OVER!";
-  const char* retry = "Press R to retry";
+  const char* retry = "Press R to retry or ESC to quit";
 
   const int go_font_size = 40;
   const int s_font_size = 20;
@@ -394,6 +394,21 @@ void track_pause()
       state = PAUSED;
     }
   }
+}
+
+void track_quit()
+{
+  if (IsKeyPressed(KEY_ESCAPE))
+  {
+    quit();
+  }
+}
+
+void quit()
+{
+  free(snake);
+  CloseWindow();
+  exit(EXIT_SUCCESS);
 }
 
 // TODO:
