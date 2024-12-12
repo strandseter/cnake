@@ -41,6 +41,7 @@ Config config;
 State state;
 
 int score;
+int high_score;
 
 Pos *snake;
 Pos food;
@@ -114,6 +115,8 @@ int main(void)
     EndDrawing();
   }
 
+  //save_high_score();
+
   quit();
 }
 
@@ -126,20 +129,33 @@ void game_over()
 
   const bool is_at_border = is_right_border || is_bottom_border || is_left_border || is_top_border;
 
+  bool is_game_over = false;
+
   if (is_at_border)
   {
-    state = GAME_OVER;
-    return;
+    is_game_over = true;
   }
 
-  for (int i = 1; i < score; i++) 
+  if (!is_game_over) 
   {
-    const bool is_self_coliding =  snake[0].x == snake[i].x && snake[i].y == snake[0].y;
-
-    if (is_self_coliding) 
+    for (int i = 1; i < score; i++) 
     {
+      const bool is_self_coliding =  snake[0].x == snake[i].x && snake[i].y == snake[0].y;
+
+      if (is_self_coliding) 
+      {
+        is_game_over = true;
+        break;
+      }
+    }
+  }
+
+  if (is_game_over)
+  {
+    if (score != high_score)
+    {
+      high_score = score;
       state = GAME_OVER;
-      return;
     }
   }
 }
@@ -272,8 +288,6 @@ void draw_game()
 
 void draw_game_over()
 {
-  int score = score;
-
   char score_text[50];
   snprintf(score_text, sizeof(score_text), "Score: %d", score);
 
