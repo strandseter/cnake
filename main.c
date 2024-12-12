@@ -40,7 +40,7 @@ Config config;
 
 State state;
 
-int len;
+int score;
 
 Pos *snake;
 Pos food;
@@ -132,7 +132,7 @@ void game_over()
     return;
   }
 
-  for (int i = 1; i < len; i++) 
+  for (int i = 1; i < score; i++) 
   {
     const bool is_self_coliding =  snake[0].x == snake[i].x && snake[i].y == snake[0].y;
 
@@ -146,7 +146,7 @@ void game_over()
 
 void move()
 {
-  for (int i = len - 1; i > 0; i--) 
+  for (int i = score - 1; i > 0; i--) 
   {
     snake[i] = snake[i - 1];
   }
@@ -174,9 +174,9 @@ void eat()
   const bool is_eating = snake[0].x == food.x && snake[0].y == food.y;
   if (!is_eating) return;
 
-  len++;
+  score++;
 
-  snake = realloc(snake, sizeof(Pos) * len);
+  snake = realloc(snake, sizeof(Pos) * score);
 
   if (snake == NULL) {
     fprintf(stderr, "Failed to reallocate memory for snake\n");
@@ -191,7 +191,7 @@ void spawn_food()
   int x = (rand() % (config.mapWidth / config.size)) * config.size;
   int y = (rand() % (config.mapHeight / config.size)) * config.size;
 
-  for (int i = 0; i < len; i++) {
+  for (int i = 0; i < score; i++) {
     while (snake[i].x == x && snake[i].y == y) {
       x = (rand() % (config.mapWidth / config.size)) * config.size;
       y = (rand() % (config.mapHeight / config.size)) * config.size;
@@ -240,7 +240,7 @@ void draw_food()
 
 void draw_snake() 
 {
-  for (int i = 0; i < len; i++) 
+  for (int i = 0; i < score; i++) 
   {
     DrawRectangle(snake[i].x, snake[i].y, config.size, config.size, RED);
     DrawRectangleLines(snake[i].x, snake[i].y, config.size, config.size, BLACK);
@@ -250,7 +250,7 @@ void draw_snake()
 void draw_score()
 {
   char score_text[50];
-  snprintf(score_text, sizeof(score_text), "Score: %d", len);
+  snprintf(score_text, sizeof(score_text), "Score: %d", score);
 
   // Draw at bottom right
   DrawText(score_text, 10, config.windowHeight - 30, 20, BLACK);
@@ -272,7 +272,7 @@ void draw_game()
 
 void draw_game_over()
 {
-  int score = len;
+  int score = score;
 
   char score_text[50];
   snprintf(score_text, sizeof(score_text), "Score: %d", score);
@@ -336,8 +336,8 @@ void init_game()
 
   state = RUNNING;
 
-  len = 1;
-  snake = malloc(sizeof(Pos) * len); 
+  score = 1;
+  snake = malloc(sizeof(Pos) * score); 
 
   if (snake == NULL) {
     fprintf(stderr, "Failed to allocate memory for snake\n");
