@@ -51,7 +51,9 @@ Direction direction;
 // Prototypes
 
 void init();
-void track_input();
+void track_arrow_keys();
+void track_restart();
+void track_pause();
 void change_direction();
 void spawn_food();
 void eat();
@@ -59,7 +61,7 @@ void move();
 void game_over();
 void draw_game();
 void draw_game_over();
-void reset_game();
+void draw_paused();
 
 int main(void)
 {
@@ -69,7 +71,9 @@ int main(void)
 
   while (!WindowShouldClose()) 
   {
-    track_input();
+    track_pause();
+    track_restart();
+    track_arrow_keys();
 
     if (tick % config.speed == 0)
     {
@@ -82,22 +86,28 @@ int main(void)
         move();
         game_over();
       }
-      else 
-      {
-        reset_game();
-      }
-    }
-
-    if (state == RUNNING)
-    {
-      draw_game();
-    } 
-    else 
-    {
-      draw_game_over();
     }
 
     tick++;
+
+    BeginDrawing();
+    ClearBackground(RAYWHITE);
+
+      if (state == RUNNING)
+      {
+        draw_game();
+      } 
+      else if (state == PAUSED)
+      {
+        draw_game();
+        draw_paused();
+      }
+      else 
+      {
+        draw_game_over();
+      }
+
+    EndDrawing();
   }
 
   free(snake);
@@ -123,7 +133,7 @@ void game_over()
 
   for (int i = 1; i < len; i++) 
   {
-    const bool is_self_coliding = snake[i].x == snake[0].x && snake[i].y == snake[0].y;
+    const bool is_self_coliding =  snake[0].x == snake[i].x && snake[i].y == snake[0].y;
 
     if (is_self_coliding) 
     {
@@ -252,16 +262,11 @@ void draw_border()
 
 void draw_game() 
 {
-  BeginDrawing();
-  ClearBackground(RAYWHITE);
-
     draw_border();
     draw_start();
     draw_food();
     draw_snake(); 
     draw_score();
-    
-  EndDrawing();
 }
 
 void draw_game_over()
@@ -282,17 +287,28 @@ void draw_game_over()
   const int s_text_width = MeasureText(score_text, s_font_size);
   const int r_text_width = MeasureText(retry, r_font_size);
 
-  BeginDrawing();
-  ClearBackground(RAYWHITE);
 
-    DrawText(game_over, (config.mapWidth - go_text_width) / 2 , config.mapHeight / 2 - go_font_size / 2, go_font_size, RED);
-    DrawText(score_text, (config.mapWidth - s_text_width) / 2 , (config.mapHeight / 2 - s_font_size / 2) + 40, s_font_size, RED);
-    DrawText(retry, (config.mapWidth - r_text_width) / 2 , (config.mapHeight / 2 - r_font_size / 2) + 100, r_font_size, RED);
-  
-  EndDrawing();
+  DrawText(game_over, (config.mapWidth - go_text_width) / 2 , config.mapHeight / 2 - go_font_size / 2, go_font_size, RED);
+  DrawText(score_text, (config.mapWidth - s_text_width) / 2 , (config.mapHeight / 2 - s_font_size / 2) + 40, s_font_size, RED);
+  DrawText(retry, (config.mapWidth - r_text_width) / 2 , (config.mapHeight / 2 - r_font_size / 2) + 100, r_font_size, RED);  
 }
 
-void track_input()
+void draw_paused()
+{
+  const char* paused = "PAUSED";
+  const char* resume = "Press P to resume";
+
+  const int p_font_size = 40;
+  const int r_font_size = 20;
+
+  const int p_text_width = MeasureText(paused, p_font_size);
+  const int r_text_width = MeasureText(resume, r_font_size);
+
+  DrawText(paused, (config.mapWidth - p_text_width) / 2 , config.mapHeight / 2 - p_font_size / 2, p_font_size, BLACK);
+  DrawText(resume, (config.mapWidth - r_text_width) / 2 , (config.mapHeight / 2 - r_font_size / 2) + 40, r_font_size, BLACK);
+}
+
+void track_arrow_keys()
 {
   if (IsKeyPressed(KEY_RIGHT)) 
   {
@@ -356,15 +372,29 @@ void init()
   init_game();
 }
 
-void reset_game()
+void track_restart()
 {
-  if (IsKeyPressed(KEY_R))
+  if (IsKeyPressed(KEY_R) && state == GAME_OVER)
   {
     free(snake);
     init_game();
   }
 }
 
+void track_pause()
+{
+  if (IsKeyPressed(KEY_P))
+  {
+    if (state == PAUSED)
+    {
+      state = RUNNING;
+    }
+    else
+    {
+      state = PAUSED;
+    }
+  }
+}
 
 // TODO:
 
