@@ -153,7 +153,7 @@ void game_over()
 
   if (is_game_over)
   {
-    if (score != high_score)
+    if (score > high_score)
     {
       high_score = score;
     }
@@ -469,10 +469,7 @@ void save_high_score()
 
 // TODO:
 
-//Score Display: Display the current score on the screen during gameplay.
-//High Score Tracking: Save and display the highest score achieved.
 //Levels or Difficulty Settings: Add different levels or difficulty settings that increase the game's complexity.
-//Sound Effects: Add sound effects for actions like eating food or game over.
 //Menu System: Implement a start menu, pause menu, and game over screen with options to restart or quit.
 //Code Documentation: Add comments and documentation to explain the code and its functionality.
 //Error Handling: Improve error handling and edge case management.
