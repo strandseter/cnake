@@ -14,7 +14,7 @@ The core gameplay follows the traditional Snake game mechanics where players con
 
 ### File Structure
 
-The project consists of several key files, each serving a specific purpose:
+The project consists of two key files, each serving a specific purpose:
 
 1. `main.c`: The heart of the game, containing the core game logic and state management. This file implements:
 
@@ -25,15 +25,9 @@ The project consists of several key files, each serving a specific purpose:
    - Drawing functions for all game elements
      The code is structured using separate functions for each responsibility, making it maintainable and easy to understand.
 
-2. `intro.c`: A separate introduction screen that displays project information and credits. I decided to separate this from the main game to:
-
-   - Keep the codebase modular and focused
-   - Provide a clean entry point for users
-   - Demonstrate proper code organization principles
-
-3. `Makefile`: Handles the build process and provides various commands for:
-   - Compiling both the main game and intro screen
-   - Running the game components
+2. `Makefile`: Handles the build process and provides various commands for:
+   - Compiling the game executable
+   - Running the game
    - Memory leak checking using the `leaks` command
    - Cleaning build artifacts
      I chose to use Make for its reliability and widespread use in C projects.
@@ -80,8 +74,8 @@ Using Raylib for graphics was a deliberate choice because:
 The project uses a comprehensive Makefile that handles all build scenarios. To run the game:
 
 1. Ensure Raylib is installed (`brew install raylib` on macOS)
-2. Run `make` to build both executables
-3. Use `make run-intro` or `make run-snake` to start either component
+2. Run `make` to build the executable
+3. Use `make run-snake` to start the game
 4. Optional: Use `make leaks-snake` to check for memory leaks
 
 ## Future Improvements
