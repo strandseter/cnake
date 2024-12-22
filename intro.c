@@ -14,11 +14,10 @@ int main(void)
   {
     BeginDrawing();
       ClearBackground(RAYWHITE);
-
       
-      const int fontSize = 20;
-      const int y = 150;  // Moved up from 200
-      const int spacing = 20; // Increased spacing for bigger gaps between lines
+      const int font_size = 20;
+      const int y = 150;
+      const int spacing = 20;
 
       const char *label_title = "Title:";
       const char *label_name = "My name:";
@@ -32,30 +31,27 @@ int main(void)
       const char *value_address = "Fredrikstad/Norway";
       const char *value_date = "2024-12-22";
 
-      // Find the widest label to align all labels
-      int maxLabelWidth = 0;
-      maxLabelWidth = fmax(maxLabelWidth, MeasureText(label_title, fontSize));
-      maxLabelWidth = fmax(maxLabelWidth, MeasureText(label_name, fontSize));
-      maxLabelWidth = fmax(maxLabelWidth, MeasureText(label_user, fontSize));
-      maxLabelWidth = fmax(maxLabelWidth, MeasureText(label_address, fontSize));
-      maxLabelWidth = fmax(maxLabelWidth, MeasureText(label_date, fontSize));
+      int max_label_width = 0;
+      max_label_width = fmax(max_label_width, MeasureText(label_title, font_size));
+      max_label_width = fmax(max_label_width, MeasureText(label_name, font_size));
+      max_label_width = fmax(max_label_width, MeasureText(label_user, font_size));
+      max_label_width = fmax(max_label_width, MeasureText(label_address, font_size));
+      max_label_width = fmax(max_label_width, MeasureText(label_date, font_size));
 
-      const int labelX = 50; // Fixed position from left edge
-      const int valueX = labelX + maxLabelWidth + 10; // 10 pixels padding between label and value
+      const int label_x = 50;
+      const int value_x = label_x + max_label_width + 10;
 
-      // Draw labels aligned to the right
-      DrawText(label_title, labelX, y, fontSize, RED);
-      DrawText(label_name, labelX, y + spacing, fontSize, RED);
-      DrawText(label_user, labelX, y + spacing * 2, fontSize, RED);
-      DrawText(label_address, labelX, y + spacing * 3, fontSize, RED);
-      DrawText(label_date, labelX, y + spacing * 4, fontSize, RED);
+      DrawText(label_title, label_x, y, font_size, RED);
+      DrawText(label_name, label_x, y + spacing, font_size, RED);
+      DrawText(label_user, label_x, y + spacing * 2, font_size, RED);
+      DrawText(label_address, label_x, y + spacing * 3, font_size, RED);
+      DrawText(label_date, label_x, y + spacing * 4, font_size, RED);
 
-      // Draw values
-      DrawText(value_title, valueX, y, fontSize, RED);
-      DrawText(value_name, valueX, y + spacing, fontSize, RED);
-      DrawText(value_user, valueX, y + spacing * 2, fontSize, RED);
-      DrawText(value_address, valueX, y + spacing * 3, fontSize, RED);
-      DrawText(value_date, valueX, y + spacing * 4, fontSize, RED);
+      DrawText(value_title, value_x, y, font_size, RED);
+      DrawText(value_name, value_x, y + spacing, font_size, RED);
+      DrawText(value_user, value_x, y + spacing * 2, font_size, RED);
+      DrawText(value_address, value_x, y + spacing * 3, font_size, RED);
+      DrawText(value_date, value_x, y + spacing * 4, font_size, RED);
 
     EndDrawing();
   }
