@@ -466,10 +466,3 @@ void save_high_score()
 
   fclose(file);
 }
-
-// TODO:
-
-//Levels or Difficulty Settings: Add different levels or difficulty settings that increase the game's complexity.
-//Menu System: Implement a start menu, pause menu, and game over screen with options to restart or quit.
-//Code Documentation: Add comments and documentation to explain the code and its functionality.
-//Error Handling: Improve error handling and edge case management.
