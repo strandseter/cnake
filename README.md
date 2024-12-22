@@ -1,6 +1,6 @@
 # CNAKE
 
-#### Video Demo: [URL to your video demo]
+#### Video Demo: [\[URL to your video demo\]](https://github.com/strandseter)
 
 #### Description:
 
