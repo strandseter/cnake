@@ -1,6 +1,6 @@
 # CNAKE
 
-#### Video Demo: [\[URL to your video demo\]](https://github.com/strandseter)
+#### Video Demo: [\[CNAKE CS50 final demo\]](https://github.com/strandseter)
 
 #### Description:
 
