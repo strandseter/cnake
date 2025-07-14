@@ -98,5 +98,3 @@ While the current implementation is complete and functional, there are several p
 - Implementing power-ups
 - Adding sound effects and background music
 - Creating a multiplayer mode
-
-This project demonstrates not only the technical skills learned in CS50 but also the importance of clean code organization, thoughtful design choices, and thorough documentation.
