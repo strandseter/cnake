@@ -6,6 +6,8 @@
 
 CNAKE is a modern implementation of the classic Snake game, developed in C using the Raylib graphics library. This project was created as my final submission for Harvard's CS50x course.
 
+Note: This project was developed entirely by hand, without the assistance of AI tools, to strengthen and demonstrate my core programming skills.
+
 ## Project Overview
 
 The core gameplay follows the traditional Snake game mechanics where players control a snake that grows longer as it consumes food. The challenge comes from avoiding collisions with the walls and the snake's own body while trying to achieve the highest possible score.
