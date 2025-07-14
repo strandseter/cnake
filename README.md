@@ -4,17 +4,17 @@
 
 #### Description:
 
-CNAKE is a modern implementation of the classic Snake game, developed in C using the Raylib graphics library. This project was created as my final submission for Harvard's CS50 course, combining fundamental programming concepts with game development principles. The game features smooth controls, clean graphics, and additional features like score tracking and game state management.
+CNAKE is a modern implementation of the classic Snake game, developed in C using the Raylib graphics library. This project was created as my final submission for Harvard's CS50x course.
 
 ## Project Overview
 
-The core gameplay follows the traditional Snake game mechanics where players control a snake that grows longer as it consumes food. The challenge comes from avoiding collisions with the walls and the snake's own body while trying to achieve the highest possible score. I chose to implement this classic game because it provides an excellent opportunity to demonstrate various programming concepts while maintaining an engaging user experience.
+The core gameplay follows the traditional Snake game mechanics where players control a snake that grows longer as it consumes food. The challenge comes from avoiding collisions with the walls and the snake's own body while trying to achieve the highest possible score.
 
 ## Technical Implementation
 
 ### File Structure
 
-The project consists of two key files, each serving a specific purpose:
+The project consists of two key files:
 
 1. `main.c`: The heart of the game, containing the core game logic and state management. This file implements:
 
@@ -41,7 +41,7 @@ One of the key design decisions was how to handle the snake's growth. I chose to
 - Allows the snake to grow indefinitely
 - Efficiently manages memory usage
 - Provides good practice with manual memory management
-  While this approach is more complex than using a fixed-size array, it better demonstrates memory management principles learned in CS50.
+  While this approach is more complex than using a fixed-size array, it better demonstrates memory management principles.
 
 #### State Management
 
@@ -69,9 +69,19 @@ Using Raylib for graphics was a deliberate choice because:
 - Keeps the focus on programming logic rather than graphics implementation
   The UI elements are positioned dynamically based on window size, making the game adaptable to different screen configurations.
 
+### Code Organization
+
+The project follows a single-file architecture, which was chosen for its simplicity and clarity. All game logic, rendering functions, and state management are contained within `main.c`. This approach offers several advantages:
+
+- Simplicity: Having everything in one file makes it easy to understand the complete game flow
+- Maintainability: No need to navigate between multiple files to understand the codebase
+- Self-contained: The entire game logic is visible at a glance, making debugging straightforward
+
+While this works well for a project of this scope, larger applications would benefit from modular architecture with separate files for different concerns (e.g., game logic, rendering, input handling, and configuration management).
+
 ## Building and Running
 
-The project uses a comprehensive Makefile that handles all build scenarios. To run the game:
+The project uses a Makefile that handles all build scenarios. To run the game:
 
 1. Ensure Raylib is installed (`brew install raylib` on macOS)
 2. Run `make` to build the executable
